@@ -1,0 +1,51 @@
+{
+    "name": "ja-website-daisy",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "package": "svelte-kit package",
+        "preview": "vite preview",
+        "prepare": "svelte-kit sync",
+        "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+        "format": "prettier --write --plugin-search-dir=. . && eslint --fix --ignore-path .gitignore ."
+    },
+    "devDependencies": {
+        "@sveltejs/adapter-auto": "next",
+        "@sveltejs/kit": "next",
+        "@tailwindcss/typography": "^0.5.4",
+        "autoprefixer": "^10.4.8",
+        "daisyui": "^2.19.0",
+        "date-fns": "^2.29.1",
+        "dotenv": "^16.0.1",
+        "eslint": "^8.21.0",
+        "eslint-config-standard": "^17.0.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-security": "^1.4.0",
+        "eslint-plugin-svelte3": "^4.0.0",
+        "eslint-plugin-unicorn": "^43.0.2",
+        "nanoid": "^4.0.0",
+        "node-fetch": "^3.2.10",
+        "postcss": "^8.4.14",
+        "postcss-load-config": "^4.0.1",
+        "prettier": "^2.5.1",
+        "prettier-plugin-svelte": "^2.5.0",
+        "prisma": "^4.1.1",
+        "stylelint-config-recommended": "^8.0.0",
+        "svelte": "^3.44.0",
+        "svelte-preprocess": "^4.10.7",
+        "tailwindcss": "^3.1.7",
+        "theme-change": "^2.2.0",
+        "vite": "^3.0.4"
+    },
+    "type": "module",
+    "dependencies": {
+        "@prisma/client": "^4.1.1",
+        "cookie": "^0.5.0",
+        "fast-jwt": "^1.7.0",
+        "pinyin-pro": "^3.11.0",
+        "remove": "^0.1.5"
+    }
+}
