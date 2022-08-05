@@ -21,7 +21,9 @@ const passwordMatches = (password, hash) => {
 export const POST = async ({ request }) => {
   try {
     const { username, password } = await request.json()
-    if (!username || !password) throw new Error('A required argument is missing.')
+    if (!username || !password) {
+      throw new Error('A required argument is missing.')
+    }
     const user = await database.user.findUnique({ where: { username } })
     if (!user) throw new Error(`Username '${username}' not found.`)
     if (!passwordMatches(password, user.password)) {
@@ -37,9 +39,11 @@ export const POST = async ({ request }) => {
       },
       headers: {
         'set-cookie': [
-          `token=${token}; Max-Age=${tokenExpiresIn * 24 * 60 * 60}; Path=/; ${secure} HttpOnly`
-        ]
-      }
+          `token=${token}; Max-Age=${
+            tokenExpiresIn * 24 * 60 * 60
+          }; Path=/; ${secure} HttpOnly`,
+        ],
+      },
     }
   } catch (error) {
     if (dev) console.error(error)

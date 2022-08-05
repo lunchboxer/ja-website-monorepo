@@ -28,6 +28,7 @@
     try {
       await onSubmit()
       errors = ''
+      form.reset()
     } catch (error) {
       errors = error
       onError(error)

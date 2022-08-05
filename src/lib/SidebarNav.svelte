@@ -1,6 +1,10 @@
 <script>
   import Logo from '$lib/Logo.svelte'
-  import { schoolYears, groups, students, school } from '$lib/data/stores.js'
+  import { guardians } from '$lib/data/guardians.js'
+  import { students } from '$lib/data/students.js'
+  import { groups } from '$lib/data/groups.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { school } from '$lib/data/school.js'
   export let checked = ''
 </script>
 
@@ -44,6 +48,14 @@
         Students
         {#if $students}
           <div class="badge">{$students.length}</div>
+        {/if}
+      </a>
+    </li>
+    <li class="m-1">
+      <a href="/guardians">
+        Guardians
+        {#if $guardians}
+          <div class="badge">{$guardians.length}</div>
         {/if}
       </a>
     </li>

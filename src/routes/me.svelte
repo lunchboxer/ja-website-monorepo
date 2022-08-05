@@ -15,6 +15,7 @@
 
 <script>
   import { me } from '$lib/data/stores.js'
+  import { getDateString } from '$lib/data/utils.js'
   import Error from '$lib/Error.svelte'
   export let user
   export let errors
@@ -24,11 +25,6 @@
   $: groupList = !user.groups?.length
     ? 'none'
     : user.groups.map(group => group.name).join(', ')
-
-  const getDateString = date => {
-    const dateObject = new Date(date)
-    return dateObject.toUTCString()
-  }
 </script>
 
 <h1>User Profile</h1>

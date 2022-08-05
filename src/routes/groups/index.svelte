@@ -1,35 +1,13 @@
-<script context="module">
-  export async function load({ fetch }) {
-    const response = await fetch('/api/groups')
-    const result = response?.ok && (await response.json())
-
-    return {
-      status: response.status,
-      props: {
-        groups: result.groups,
-        errors: result.errors,
-      },
-    }
-  }
-</script>
-
 <script>
-  import Error from '$lib/Error.svelte'
   import AddGroup from './_AddGroup.svelte'
   import GroupRow from './_GroupRow.svelte'
-  import { groups as store } from '$lib/data/stores.js'
-  export let groups
-  export let errors
-
-  store.set(groups)
+  import { groups } from '$lib/data/groups.js'
 </script>
 
 <h1>Groups</h1>
 
-<Error {errors} />
-
-{#if $store?.length > 0}
-  <p>There are {$store.length} groups.</p>
+{#if $groups?.length > 0}
+  <p>There are {$groups.length} groups.</p>
 
   <div class="overflow-x-auto w-full">
     <table class="table table-zebra w-full">
@@ -43,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each $store as group}
+        {#each $groups as group}
           <GroupRow {group} />
         {/each}
       </tbody>

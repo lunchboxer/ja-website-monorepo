@@ -12,13 +12,14 @@
 
   // sidebar binding
   let checked = ''
+  let ready = false
 
   onMount(() => {
     themeChange(false)
   })
 </script>
 
-<InitialDataLoader />
+<InitialDataLoader bind:ready />
 
 <div class="drawer drawer-mobile">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked />
@@ -26,10 +27,12 @@
     <Header />
 
     <div class="container prose mx-auto px-4 py-4 mt-20">
-      {#if $me && !$me?.id && $page.url.pathname !== '/settings'}
-        <Login />
-      {:else if $me}
-        <slot />
+      {#if ready}
+        {#if $me && !$me?.id && $page.url.pathname !== '/settings'}
+          <Login />
+        {:else if $me}
+          <slot />
+        {/if}
       {/if}
     </div>
   </div>

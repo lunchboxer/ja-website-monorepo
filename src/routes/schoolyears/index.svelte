@@ -1,38 +1,16 @@
-<script context="module">
-  export async function load({ fetch }) {
-    const response = await fetch('/api/schoolyears')
-    const result = response?.ok && (await response.json())
-
-    return {
-      status: response.status,
-      props: {
-        schoolYears: result.schoolYears,
-        errors: result.errors,
-      },
-    }
-  }
-</script>
-
 <script>
-  import Error from '$lib/Error.svelte'
   import ActiveSchoolYearSelect from '$lib/ActiveSchoolYearSelect.svelte'
   import AddSchoolYear from './_AddSchoolYear.svelte'
   import SchoolYearRow from './_SchoolYearRow.svelte'
-  import { schoolYears as schoolYearsStore } from '$lib/data/stores.js'
-  export let schoolYears
-  export let errors
-
-  schoolYearsStore.set({ ...$schoolYearsStore, all: schoolYears })
+  import { schoolYears } from '$lib/data/schoolYears.js'
 </script>
 
 <h1>School years</h1>
 
-<Error {errors} />
-
-{#if $schoolYearsStore}
-  {#if $schoolYearsStore.all?.length > 0}
-    <p>{$schoolYearsStore.all.length} school years in system.</p>
-    <ActiveSchoolYearSelect selected={$schoolYearsStore.active} />
+{#if $schoolYears}
+  {#if $schoolYears.all?.length > 0}
+    <p>{$schoolYears.all.length} school years in system.</p>
+    <ActiveSchoolYearSelect selected={$schoolYears.active} />
     <div class="overflow-x-auto w-full">
       <table class="table table-zebra w-full">
         <!-- head -->
@@ -45,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          {#each $schoolYearsStore.all as schoolYear}
+          {#each $schoolYears.all as schoolYear}
             <SchoolYearRow {schoolYear} />
           {/each}
         </tbody>

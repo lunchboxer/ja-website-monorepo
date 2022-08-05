@@ -1,5 +1,6 @@
 <script>
-  import { school, schoolYears } from '$lib/data/stores.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { school } from '$lib/data/school.js'
   import ActiveSchoolYearSelect from '$lib/ActiveSchoolYearSelect.svelte'
 </script>
 

@@ -1,14 +1,11 @@
 <script>
-  import { schoolYears } from '$lib/data/stores.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
 
   export let selected = ''
   // in case the value passed in is null or undefined
   let realSelect = selected || ''
 
-  const selectActive = () => {
-    if (!realSelect) return
-    schoolYears.set({ ...$schoolYears, active: realSelect })
-  }
+  const selectActive = () => realSelect && schoolYears.setActive(realSelect)
 </script>
 
 {#if $schoolYears?.all?.length > 0}

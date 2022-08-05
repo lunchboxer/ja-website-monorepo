@@ -1,6 +1,6 @@
 <script>
-  import { schoolYears, groups } from '$lib/data/stores.js'
-  import { client } from '$lib/data/fetch-client.js'
+  import { groups } from '$lib/data/groups.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
   import Warning from '$lib/Warning.svelte'
   import DeleteThing from '$lib/DeleteThing.svelte'
 
@@ -8,16 +8,9 @@
 
   const schoolYear = $schoolYears.all.find(year => year.id === id)
 
-  $: groupsConnected = $groups.map(
-    group => group.schoolYearId === id && group.id,
-  )
+  $: groupsConnected = $groups.filter(g => g.schoolYearId === id)
 
-  const deleteSchoolYear = async () => {
-    await client(`/api/schoolyears/${id}`, id, 'DELETE')
-    if ($schoolYears.active === id) {
-      schoolYears.set({ ...$schoolYears, active: '' })
-    }
-  }
+  const deleteSchoolYear = () => schoolYears.remove(id)
 </script>
 
 {#if groupsConnected?.length > 0}

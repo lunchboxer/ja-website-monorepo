@@ -1,5 +1,6 @@
 <script>
-  import { schoolYears, upcomingBirthdays } from '$lib/data/stores.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { upcomingBirthdays } from '$lib/data/students.js'
   import { getAge } from '$lib/data/utils.js'
   import EditIcon from '$lib/icons/EditIcon.svelte'
   export let student
@@ -11,7 +12,6 @@
   $: upcomingBday =
     $upcomingBirthdays &&
     $upcomingBirthdays.find(bday => bday.id === student.id)
-  $: console.log(student)
 </script>
 
 {#if student}

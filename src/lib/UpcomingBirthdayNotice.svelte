@@ -1,6 +1,6 @@
 <script>
   import Info from '$lib/Info.svelte'
-  import { upcomingBirthdays } from '$lib/data/stores.js'
+  import { upcomingBirthdays } from '$lib/data/students.js'
 </script>
 
 {#if $upcomingBirthdays && $upcomingBirthdays.length > 0}

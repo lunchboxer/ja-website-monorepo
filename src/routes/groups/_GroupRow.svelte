@@ -1,5 +1,5 @@
 <script>
-  import { schoolYears } from '$lib/data/stores.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
   import EditIcon from '$lib/icons/EditIcon.svelte'
   export let group
   const schoolYearName = id => {

@@ -4,6 +4,12 @@ import {
   differenceInCalendarDays,
   isLeapYear,
 } from 'date-fns'
+import { browser } from '$app/env'
+
+export function getDateString(date) {
+  const dateObject = new Date(date)
+  return dateObject.toUTCString()
+}
 
 export function getFullAge(dateString) {
   if (!dateString) return
@@ -34,21 +40,17 @@ export function daysToBirthday(dateString) {
   const birthdate = new Date(dateString)
   const birthMonth = birthdate.getMonth() + 1
   const birthDate = birthdate.getDate()
-  let nextBirthDay
-  let isLeapBaby = false
   if (birthMonth === now.getMonth() + 1 && birthDate === now.getDate()) return 0
-  if (birthMonth === 2 && birthDate === 29) isLeapBaby = true
-  if (isLeapBaby && !isLeapYear(now)) {
-    nextBirthDay = new Date(now.getFullYear(), 2, 1)
-  } else {
-    nextBirthDay = new Date(dateString).setFullYear(now.getFullYear())
-  }
+  const isLeapBaby = birthMonth === 2 && birthDate === 29
+  let nextBirthDay =
+    isLeapBaby && !isLeapYear(now)
+      ? new Date(now.getFullYear(), 2, 1)
+      : new Date(dateString).setFullYear(now.getFullYear())
   if (isPast(nextBirthDay)) {
-    if (isLeapBaby && !isLeapYear(new Date(now.getFullYear() + 1))) {
-      nextBirthDay = new Date(now.getFullYear() + 1, 2, 1)
-    } else {
-      nextBirthDay = new Date(dateString).setFullYear(now.getFullYear() + 1)
-    }
+    nextBirthDay =
+      isLeapBaby && !isLeapYear(new Date(now.getFullYear() + 1))
+        ? new Date(now.getFullYear() + 1, 2, 1)
+        : new Date(dateString).setFullYear(now.getFullYear() + 1)
   }
   return differenceInCalendarDays(nextBirthDay, now)
 }
@@ -87,4 +89,10 @@ export async function disconnectOtherGroupsThisSchoolYear(
       },
     },
   })
+}
+
+export function getObjectFromStorage(object) {
+  if (!browser) return
+  const coldObject = browser && localStorage.getItem(object)
+  return coldObject ? JSON.parse(coldObject) : {}
 }

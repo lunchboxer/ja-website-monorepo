@@ -9,7 +9,9 @@ export const GET = async ({ params }) => {
   try {
     const student = await database.student.findUnique({
       where: { id },
-      include: { groups: true },
+      include: {
+        groups: true,
+      },
     })
     return {
       body: { student },

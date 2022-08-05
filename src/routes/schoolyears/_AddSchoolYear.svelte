@@ -1,6 +1,5 @@
 <script>
-  import { schoolYears } from '$lib/data/stores.js'
-  import { client } from '$lib/data/fetch-client.js'
+  import { schoolYears } from '$lib/data/schoolYears.js'
   import { notifications } from '$lib/notifications/index.js'
   import Form from '$lib/Form.svelte'
   import Input from '$lib/Input.svelte'
@@ -15,22 +14,11 @@
     endDate = ''
   }
   const onSubmit = async () => {
-    // await schoolYears.create({ name, startDate, endDate })
-    const response = await client('/api/schoolyears', {
-      name,
-      startDate,
-      endDate,
-    })
-    console.log(response)
-    schoolYears.set({
-      ...$schoolYears,
-      all: [...$schoolYears.all, response.schoolYear],
-    })
+    await schoolYears.create({ name, startDate, endDate })
     notifications.add({
       type: 'success',
       text: `Added school year "${name}"`,
     })
-    onReset()
   }
 
   const onError = () => {
