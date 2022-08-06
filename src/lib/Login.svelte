@@ -1,75 +1,65 @@
 <script>
-  import { me } from '$lib/data/stores.js'
+  import { me } from '$lib/data/me.js'
   import Form from '$lib/Form.svelte'
   import Input from '$lib/Input.svelte'
   import { notifications } from '$lib/notifications'
-  import { client } from '$lib/data/fetch-client.js'
+  import { session } from '$app/stores'
+  import { goto } from '$app/navigation'
 
   let username = ''
   let password = ''
   let email = ''
   let name = ''
-  let signup = false
 
-  const toggleSignup = () => {
-    signup = !signup
-  }
   const login = async () => {
-    const response = await client('/api/login', { username, password })
-    me.set(response.user)
+    await me.login({ username, password })
     notifications.add({
       type: 'success',
       text: `Logged in as ${username}`,
     })
   }
+
   const loginOnError = () => {
     notifications.add({ text: 'Login failed.', type: 'error' })
   }
-  const create = async () => {
-    const response = await client('/api/signup', {
-      username,
-      email,
-      name,
-      password,
-    })
-    me.set(response.user)
+
+  const createAdmin = async () => {
+    await me.signup({ username, email, name, password, role: 'admin' })
     notifications.add({
       type: 'success',
-      text: `Created new user: ${username}`,
+      text: `Created initial admin user: ${username}`,
     })
+    $session.oneUserExists = true
+    goto('/')
   }
+
   const createOnError = () => {
     notifications.add({ text: 'Failed to create new user', type: 'error' })
   }
 </script>
 
-<h1>Log in</h1>
+{#if $session.oneUserExists}
+  <h1>Log in</h1>
 
-{#if !signup}
   <Form submitLabel="Log in" onSubmit={login} onError={loginOnError}>
     <Input label="Username" bind:value={username} required />
     <Input type="password" label="Password" bind:value={password} required />
   </Form>
 
-  <p>Don't have an account?</p>
   <p>
-    <button class="btn btn-secondary btn-outline" on:click={toggleSignup}>
-      Create user
-    </button>
+    Don't have an account? You'll need to ask an admin user to create an account
+    for you.
   </p>
 {:else}
-  <h1>Create a user account</h1>
-  <Form onSubmit={create} onError={createOnError} submitLabel="Create User">
+  <h1>Create admin account</h1>
+  <Form
+    onSubmit={createAdmin}
+    onError={createOnError}
+    submitLabel="Create admin"
+  >
     <Input bind:value={username} label="Username" required />
     <Input bind:value={email} type="email" label="Email" required />
     <Input bind:value={name} label="Name" />
     <Input bind:value={password} type="password" label="Password" required />
   </Form>
-
-  <p>Already have an account?</p>
-  <p>
-    <button class="btn btn-secondary btn-outline" on:click={toggleSignup}>
-      Log in
-    </button>
-  </p>
 {/if}

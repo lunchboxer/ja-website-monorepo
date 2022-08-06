@@ -1,6 +1,7 @@
 <script>
   import { notifications } from '$lib/notifications'
   import Error from '$lib/Error.svelte'
+  import { dev } from '$app/env'
 
   let form
 
@@ -28,8 +29,9 @@
     try {
       await onSubmit()
       errors = ''
-      form.reset()
+      form && form.reset() // component may have unmounted by this time
     } catch (error) {
+      dev && console.error(error)
       errors = error
       onError(error)
     } finally {

@@ -8,10 +8,3 @@ browser &&
     if (!value) return
     localStorage.me = JSON.stringify(value)
   })
-
-export const schoolYears = writable(getObjectFromStorage('schoolYears'))
-browser &&
-  schoolYears.subscribe(value => {
-    if (!value) return
-    localStorage.schoolYears = JSON.stringify(value)
-  })

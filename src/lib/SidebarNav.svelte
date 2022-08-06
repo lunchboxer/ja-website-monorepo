@@ -5,6 +5,7 @@
   import { groups } from '$lib/data/groups.js'
   import { schoolYears } from '$lib/data/schoolYears.js'
   import { school } from '$lib/data/school.js'
+  import { me } from '$lib/data/me.js'
   export let checked = ''
 </script>
 
@@ -59,5 +60,10 @@
         {/if}
       </a>
     </li>
+    {#if $me?.roles.includes('admin')}
+      <li class="m-1">
+        <a href="/users"> Users </a>
+      </li>
+    {/if}
   </ul>
 </div>

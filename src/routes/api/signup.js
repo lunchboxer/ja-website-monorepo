@@ -22,25 +22,49 @@ function isValidEmail(email) {
   return email.match(mailFormatRegex)
 }
 
+function isAdmin(user) {
+  return user?.roles.some(r => r.name === 'admin')
+}
+
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const POST = async ({ request }) => {
+export const POST = async ({ request, locals }) => {
   try {
-    const { username, name, email, password } = await request.json()
+    if (locals.oneUserExists && !isAdmin(locals.user)) {
+      throw new Error('Not Authorized')
+    }
+    const { username, name, email, password, role } = await request.json()
     if (!isValidEmail(email)) {
       throw new Error('email address not valid')
     }
     if (!username || !password) {
       throw new Error('A required argument is missing.')
     }
-    const usernameTaken = await database.user.findFirst({ where: { username } })
+    const usernameTaken = await database.user.findFirst({
+      where: { username },
+    })
     if (usernameTaken) throw new Error('Username already exists')
     const hashedPassword = hashPassword(password)
     const user = await database.user.create({
-      data: { username, name, email, password: hashedPassword },
+      data: {
+        username,
+        name,
+        email,
+        password: hashedPassword,
+        roles: {
+          connectOrCreate: {
+            where: {
+              name: role,
+            },
+            create: {
+              name: role,
+            },
+          },
+        },
+      },
+      include: { roles: true },
     })
     const token = sign({ userId: user.id })
     const secure = dev ? '' : ' Secure;'
-    delete user.password
     return {
       body: { user },
       headers: {

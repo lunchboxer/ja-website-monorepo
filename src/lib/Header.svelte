@@ -1,8 +1,7 @@
 <script>
-  import { me } from '$lib/data/stores.js'
+  import { me } from '$lib/data/me.js'
   import { notifications } from '$lib/notifications'
   import { goto } from '$app/navigation'
-  import { client } from '$lib/data/fetch-client.js'
   import Logo from '$lib/Logo.svelte'
   import MenuDotsIcon from '$lib/icons/MenuDotsIcon.svelte'
   import MenuHamburgerIcon from '$lib/icons/MenuHamburgerIcon.svelte'
@@ -18,9 +17,12 @@
       })
       return
     }
-    await client('/api/logout')
-    notifications.add({ text: `Logged out ${$me.username}`, type: 'success' })
-    me.set({})
+    const username = $me.username
+    await me.logout()
+    notifications.add({
+      text: `Logged out ${username}`,
+      type: 'success',
+    })
     goto('/')
   }
 </script>
