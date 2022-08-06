@@ -2,6 +2,7 @@ import { database } from '$lib/data/database.js'
 import { dev } from '$app/env'
 import { pinyin } from 'pinyin-pro'
 import { disconnectOtherGroupsThisSchoolYear } from '$lib/data/utils.js'
+import { deleteById } from '../_utils.js'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const GET = async ({ params }) => {
@@ -27,8 +28,9 @@ export const GET = async ({ params }) => {
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const PATCH = async ({ request, params }) => {
+  const id = params.id
   try {
-    const { id, groupId, ...parameters } = await request.json()
+    const { groupId, ...parameters } = await request.json()
     if (!id) {
       throw new Error('Missing required input')
     }
@@ -62,19 +64,4 @@ export const PATCH = async ({ request, params }) => {
 }
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export const DELETE = async ({ params }) => {
-  try {
-    const { id } = params
-    if (!id) throw new Error('id of student is required.')
-    const deleted = await database.student.delete({ where: { id } })
-    return {
-      body: { student: deleted },
-    }
-  } catch (error) {
-    if (dev) console.error(error)
-    return {
-      status: 400,
-      body: { errors: error.message },
-    }
-  }
-}
+export const DELETE = event => deleteById(event, 'student')
