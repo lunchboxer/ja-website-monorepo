@@ -22,17 +22,11 @@ function isValidEmail(email) {
   return email.match(mailFormatRegex)
 }
 
-function isAdmin(user) {
-  return user?.roles.some(r => r.name === 'admin')
-}
-
+// only used for creating initial admin user
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const POST = async ({ request, locals }) => {
   try {
-    if (locals.oneUserExists && !isAdmin(locals.user)) {
-      throw new Error('Not Authorized')
-    }
-    const { username, name, email, password, role } = await request.json()
+    const { username, name, email, password } = await request.json()
     if (!isValidEmail(email)) {
       throw new Error('email address not valid')
     }
@@ -53,10 +47,10 @@ export const POST = async ({ request, locals }) => {
         roles: {
           connectOrCreate: {
             where: {
-              name: role,
+              name: 'admin',
             },
             create: {
-              name: role,
+              name: 'admin',
             },
           },
         },

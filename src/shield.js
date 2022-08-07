@@ -16,9 +16,11 @@ export const and = array => event => {
 
 // return true on permission check rejection
 async function findAndCall(key, branch, event) {
-  return key in branch &&
+  return (
+    key in branch &&
     typeof branch[key] === 'function' &&
     !(await branch[key](event))
+  )
 }
 
 export const shield = (permissionsSchema, apiPrefix) => async event => {

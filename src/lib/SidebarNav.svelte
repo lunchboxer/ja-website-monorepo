@@ -6,6 +6,7 @@
   import { schoolYears } from '$lib/data/schoolYears.js'
   import { school } from '$lib/data/school.js'
   import { me } from '$lib/data/me.js'
+  import { users } from '$lib/data/users.js'
   export let checked = ''
 </script>
 
@@ -62,7 +63,14 @@
     </li>
     {#if $me?.roles?.includes('admin')}
       <li class="m-1">
-        <a href="/users"> Users </a>
+        <a href="/users">
+          Users
+          {#if $users}
+            {#await users.count() then count}
+              <div class="badge">{count}</div>
+            {/await}
+          {/if}
+        </a>
       </li>
     {/if}
   </ul>

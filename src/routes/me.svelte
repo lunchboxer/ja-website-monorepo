@@ -2,7 +2,7 @@
   import { me } from '$lib/data/me.js'
   import { getDateString } from '$lib/data/utils.js'
 
-  $: groupList = !$me.groups?.length
+  const groupList = !$me.groups?.length
     ? 'none'
     : $me.groups.map(group => group.name).join(', ')
 </script>

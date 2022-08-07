@@ -11,12 +11,11 @@
 
   <div class="overflow-x-auto w-full">
     <table class="table table-zebra w-full">
-      <!-- head -->
       <thead>
         <tr>
           <th>Name</th>
-          <th>Grade</th>
-          <th>Schoolyear</th>
+          <th>Relationship</th>
+          <th>Students</th>
           <th>Action</th>
         </tr>
       </thead>

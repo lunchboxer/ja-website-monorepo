@@ -1,12 +1,11 @@
 import { writable } from 'svelte/store'
 import { client } from '$lib/data/fetch-client.js'
-import { getObjectFromStorage } from './utils.js'
-import { browser } from '$app/env'
 import { session } from '$app/stores'
 
 function createMeStore() {
-  const { subscribe, set } = writable(getObjectFromStorage('me'))
+  const { subscribe, set } = writable({})
   return {
+    set,
     subscribe,
     login: async function (parameters) {
       const response = await client('/api/login', parameters)
@@ -32,8 +31,3 @@ function createMeStore() {
 }
 
 export const me = createMeStore()
-browser &&
-  me.subscribe(value => {
-    if (!value) return
-    localStorage.me = JSON.stringify(value)
-  })

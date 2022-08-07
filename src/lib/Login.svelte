@@ -24,7 +24,7 @@
   }
 
   const createAdmin = async () => {
-    await me.signup({ username, email, name, password, role: 'admin' })
+    await me.signup({ username, email, name, password })
     notifications.add({
       type: 'success',
       text: `Created initial admin user: ${username}`,

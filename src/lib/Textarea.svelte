@@ -1,6 +1,6 @@
 <script>
   let textarea
-  export let value
+  export let value = ''
   export let label = ''
   let error = false
   export let required = false

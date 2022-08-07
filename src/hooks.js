@@ -36,5 +36,6 @@ export function getSession(event) {
   return {
     oneUserExists: event.locals.oneUserExists,
     isAuthenticated: Boolean(event.locals.user),
+    me: event.locals.user,
   }
 }

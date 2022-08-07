@@ -10,6 +10,7 @@
 
   $: student = $students.find(s => s.id === id)
   const ageString = bdate => {
+    if (!bdate) return
     const { years, months, days } = getFullAge(bdate)
     return `${years} yrs, ${months} m, ${days} d old`
   }
@@ -66,7 +67,13 @@
         </tr>
         <tr>
           <td>Birthdate</td>
-          <td>{student.birthdate || '--'} ({ageString(student.birthdate)})</td>
+          <td>
+            {#if student.birthdate}
+              {student.birthdate} ({ageString(student.birthdate)})
+            {:else}
+              --
+            {/if}
+          </td>
         </tr>
         <tr>
           <td>groups</td>

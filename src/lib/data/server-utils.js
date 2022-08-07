@@ -15,6 +15,7 @@ export const getUserFromCookies = async cookies => {
       where: { id: userId },
       include: { roles: true },
     })
+    if (!user) return
     delete user.password
     return user
   } catch (error) {

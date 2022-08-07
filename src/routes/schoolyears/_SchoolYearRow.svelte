@@ -1,5 +1,5 @@
 <script>
-  import EditIcon from '$lib/icons/EditIcon.svelte'
+  import EditButton from '$lib/EditButton.svelte'
   export let schoolYear
 
   const dateString = string => {
@@ -10,13 +10,11 @@
 
 {#if schoolYear}
   <tr>
-    <th>{schoolYear.name}</th>
+    <td>{schoolYear.name}</td>
     <td>{dateString(schoolYear.startDate)}</td>
     <td>{dateString(schoolYear.endDate)}</td>
     <td>
-      <a href="/schoolyears/edit/{schoolYear.id}" class="btn btn-ghost">
-        <EditIcon />
-      </a>
+      <EditButton url="/schoolyears/edit/{schoolYear.id}" />
     </td>
   </tr>
 {/if}

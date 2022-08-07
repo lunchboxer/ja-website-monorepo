@@ -1,6 +1,5 @@
 <script>
   import { groups } from '$lib/data/groups.js'
-  import { client } from '$lib/data/fetch-client.js'
   import DeleteThing from '$lib/DeleteThing.svelte'
 
   export let id

@@ -1,4 +1,4 @@
-import { or, shield } from './shield.js'
+import { shield } from './shield.js'
 
 const apiPrefix = '/api/'
 
@@ -7,13 +7,12 @@ const isAdmin = event => event.locals.user?.roles?.includes('admin')
 const noUsersExist = event => !event.locals.oneUserExists
 
 // Assign permissions checks to run on certain paths
-//
 const permissionsSchema = {
   users: {
     any: isAdmin,
   },
   signup: {
-    any: or([isAdmin, noUsersExist]),
+    any: noUsersExist,
   },
   students: {
     DELETE: isAdmin,

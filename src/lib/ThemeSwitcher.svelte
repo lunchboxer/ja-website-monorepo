@@ -20,7 +20,7 @@
     if (theme !== 'light' && theme !== 'dracula') return
     if (!browser) return
     localStorage.theme = theme
-    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.dataset.theme = theme
   }
 </script>
 

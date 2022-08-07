@@ -25,9 +25,8 @@ model User {
 }
 
 model Role {
-  name   String  @unique
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  name  String @id
+  users User[]
 }
 
 model Student {

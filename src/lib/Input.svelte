@@ -1,16 +1,16 @@
 <script>
   let input
-  export let value = undefined
+  export let value = ''
   export let label = ''
   export let error = false
   export let required = false
   export let pattern = '^.+$'
   export let minlength = 1
-  export let maxlength = undefined
+  export let maxlength
   export let type = 'text'
   export let description = ''
-  export let min = undefined
-  export let max = undefined
+  export let min
+  export let max
   export let onChange = () => {}
   let show = false
 
@@ -38,7 +38,7 @@
   }
 </script>
 
-<div class="form-control">
+<div class="form-control my-2">
   <label class="label" for={name}>
     <span class="label-text">{label}</span>
     {#if error}

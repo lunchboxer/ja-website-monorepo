@@ -43,6 +43,7 @@
   const reset = () => {
     onReset()
     errors = ''
+    form.setAttribute('isvalid', true)
   }
 </script>
 

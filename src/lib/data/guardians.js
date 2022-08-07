@@ -23,15 +23,21 @@ function createGuardiansStore() {
     // patch //
     patch: async function (guardian) {
       delete guardian.students
-      const response = await client(`/api/guardians/${guardian.id}`, guardian, 'PATCH')
+      const response = await client(
+        `/api/guardians/${guardian.id}`,
+        guardian,
+        'PATCH',
+      )
       this.updateOne(response.guardian)
     },
     // update a single guardian after changing on the server //
     updateOne: function (guardian) {
-      update(existing => existing.map(g => {
-        if (g.id !== guardian.id) return g
-        return guardian
-      }))
+      update(existing =>
+        existing.map(g => {
+          if (g.id !== guardian.id) return g
+          return guardian
+        }),
+      )
     },
     // disconnect from student //
     disconnect: async function (guardianId, studentId) {
@@ -50,7 +56,7 @@ function createGuardiansStore() {
         'PATCH',
       )
       this.updateOne(response.guardian)
-    }
+    },
   }
 }
 

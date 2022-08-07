@@ -91,8 +91,8 @@ export async function disconnectOtherGroupsThisSchoolYear(
   })
 }
 
-export function getObjectFromStorage(object) {
+export function getObjectFromStorage(objectName) {
   if (!browser) return
-  const coldObject = browser && localStorage.getItem(object)
+  const coldObject = browser && localStorage.getItem(objectName)
   return coldObject ? JSON.parse(coldObject) : {}
 }

@@ -9,33 +9,54 @@ function createUsersStore() {
     // Get //
     get: async () => {
       const response = await client('/api/users', undefined, 'GET')
-      response && set(response.students)
+      response && set(response.users)
+    },
+    count: async () => {
+      const response = await client('/api/users/count', undefined, 'GET')
+      return response?.count?._count?.id
     },
     // Create //
     create: async parameters => {
-      const response = await client('/api/students', parameters)
-      update(existing => [...existing, response.student])
+      const response = await client('/api/users', parameters)
+      update(existing => [...existing, response.user])
+    },
+    updateOne: function (user) {
+      update(existing => {
+        let sawUser = false
+        const previousUsers = existing.map(u => {
+          if (u.id !== user.id) return u
+          sawUser = true
+          return user
+        })
+        if (!sawUser) return [...previousUsers, user]
+        return previousUsers
+      })
     },
     // Patch //
-    patch: async student => {
-      const { groups, guardians, createdAt, updatedAt, ...cleanStudent } =
-        student
+    patch: async function (user) {
+      const response = await client(`/api/users/${user.id}`, user, 'PATCH')
+      this.updateOne(response.user)
+    },
+    removeRole: async function (role, userId) {
       const response = await client(
-        `/api/students/${student.id}`,
-        cleanStudent,
+        '/api/roles/unassign',
+        { role, userId },
         'PATCH',
       )
-      update(existing =>
-        existing.map(s => {
-          if (s.id === student.id) return response.student
-          return s
-        }),
+      this.updateOne(response.user)
+    },
+    addRole: async function (role, userId) {
+      const response = await client(
+        '/api/roles/assign',
+        { role, userId },
+        'PATCH',
       )
+      this.updateOne(response.user)
     },
     // Remove //
     remove: async id => {
-      await client(`/api/students/${id}`, id, 'DELETE')
-      update(existing => existing.filter(s => s.id !== id))
+      await client(`/api/users/${id}`, id, 'DELETE')
+      update(existing => existing.filter(u => u.id !== id))
     },
   }
 }

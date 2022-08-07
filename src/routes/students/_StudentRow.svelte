@@ -2,7 +2,7 @@
   import { schoolYears } from '$lib/data/schoolYears.js'
   import { upcomingBirthdays } from '$lib/data/students.js'
   import { getAge } from '$lib/data/utils.js'
-  import EditIcon from '$lib/icons/EditIcon.svelte'
+  import EditButton from '$lib/EditButton.svelte'
   export let student
 
   const yearName = group => {
@@ -34,9 +34,7 @@
       {/each}
     </td>
     <td>
-      <a href="/students/edit/{student.id}" class="btn btn-ghost">
-        <EditIcon />
-      </a>
+      <EditButton url="/students/edit/{student.id}" />
     </td>
   </tr>
 {/if}
