@@ -21,6 +21,7 @@
   import Error from '$lib/Error.svelte'
   import RoleSelectOrInput from '$lib/RoleSelectOrInput.svelte'
   import AssignedRoles from './_AssignedRoles.svelte'
+  import DeleteThing from '$lib/DeleteThing.svelte'
 
   export let user
   export let errors = ''
@@ -56,7 +57,14 @@
   </Form>
   <AssignedRoles roles={user.roles} userId={user.id} />
   <RoleSelectOrInput currentRoles={user.roles} userId={user.id} />
-  <!-- <DeleteUser id={user.id} /> -->
+
+  <DeleteThing
+    thingName="User {user.username}"
+    deleteFunction={() => {
+      users.remove(user.id)
+    }}
+    referrer="/users"
+  />
 {:else}
   <p>loading user</p>
 {/if}
