@@ -1,30 +1,12 @@
 import * as cookie from 'cookie'
 import { database } from '$lib/data/database.js'
-import { createVerifier } from 'fast-jwt'
-import { dev } from '$app/env'
+import { getUserFromCookies } from '$lib/data/server-utils.js'
+
+import { checkPermissions } from './permissions.js'
 
 // export const state = {
 //   oneUserExists: undefined,
 // }
-
-const verify = createVerifier({ key: process.env.JWT_SECRET })
-
-const getUserFromCookies = async cookies => {
-  if (!cookies.token) return
-  try {
-    const verifiedToken = verify(cookies.token)
-    const userId = verifiedToken && verifiedToken.userId
-    if (!userId) return
-    // get the authenticated user from the db
-    const user = await database.user.findUnique({
-      where: { id: userId },
-      include: { roles: true },
-    })
-    return user
-  } catch (error) {
-    dev && console.error('getUserFromCookies error', error)
-  }
-}
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -38,13 +20,21 @@ export async function handle({ event, resolve }) {
   // This call averages less than 1 ms with sqlite on desktop
   // if the call were to a postgres server, like from a serverless platform it
   // would likely be a lot more expensive.
-  event.locals.oneUserExists = Boolean(await database.User.findFirst())
+  event.locals.oneUserExists = Boolean(await database.user.findFirst())
   const cookieHeader = event.request.headers.get('cookie')
   const cookies = cookie.parse(cookieHeader ?? '')
   event.locals.user = await getUserFromCookies(cookies)
-  return await resolve(event)
+  // attempting a declarative approach to permissions
+  const permissionDenied = await checkPermissions(event)
+  if (permissionDenied) return permissionDenied
+
+  const result = await resolve(event)
+  return result
 }
 
 export function getSession(event) {
-  return { oneUserExists: event.locals.oneUserExists }
+  return {
+    oneUserExists: event.locals.oneUserExists,
+    isAuthenticated: Boolean(event.locals.user),
+  }
 }

@@ -4,10 +4,11 @@ import { client } from '$lib/data/fetch-client.js'
 function createUsersStore() {
   const { subscribe, set, update } = writable([])
   return {
+    set,
     subscribe,
     // Get //
     get: async () => {
-      const response = await client('/api/students', undefined, 'GET')
+      const response = await client('/api/users', undefined, 'GET')
       response && set(response.students)
     },
     // Create //

@@ -5,8 +5,6 @@
   $: groupList = !$me.groups?.length
     ? 'none'
     : $me.groups.map(group => group.name).join(', ')
-
-  $: roleList = $me.roles.map(role => role.name).join(', ')
 </script>
 
 <h1>User Profile</h1>
@@ -22,10 +20,9 @@
         </tr>
       </thead>
       <tbody>
-        <!-- row 1 -->
         <tr>
           <td>name</td>
-          <td>{$me.name}</td>
+          <td>{$me.name || '--'}</td>
         </tr>
         <tr>
           <td>ID</td>

@@ -60,7 +60,7 @@
         {/if}
       </a>
     </li>
-    {#if $me?.roles.includes('admin')}
+    {#if $me?.roles?.includes('admin')}
       <li class="m-1">
         <a href="/users"> Users </a>
       </li>

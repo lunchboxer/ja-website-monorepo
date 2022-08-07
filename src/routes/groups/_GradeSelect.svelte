@@ -1,6 +1,6 @@
 <script>
   import { allGrades } from '$lib/data/constants.js'
-  export let grade
+  export let grade = ''
 </script>
 
 <div class="form-control w-full max-w-xs">

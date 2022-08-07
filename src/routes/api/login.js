@@ -26,12 +26,15 @@ export const POST = async ({ request }) => {
     }
     const user = await database.user.findUnique({
       where: { username },
-      include: { roles: true },
+      include: {
+        roles: true,
+      },
     })
     if (!user) throw new Error(`Username '${username}' not found.`)
     if (!passwordMatches(password, user.password)) {
       throw new Error('Invalid password')
     }
+    delete user.password
     const tokenExpiresIn = 30 // days
     const token = sign({ userId: user.id })
     const secure = dev ? '' : ' Secure;'

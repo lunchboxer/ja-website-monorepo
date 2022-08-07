@@ -64,6 +64,7 @@ export const POST = async ({ request, locals }) => {
       include: { roles: true },
     })
     const token = sign({ userId: user.id })
+    delete user.password
     const secure = dev ? '' : ' Secure;'
     return {
       body: { user },

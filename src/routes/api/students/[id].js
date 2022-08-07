@@ -2,7 +2,7 @@ import { database } from '$lib/data/database.js'
 import { dev } from '$app/env'
 import { pinyin } from 'pinyin-pro'
 import { disconnectOtherGroupsThisSchoolYear } from '$lib/data/utils.js'
-import { deleteById } from '../_utils.js'
+import { deleteById } from '$lib/data/server-utils.js'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const GET = async ({ params }) => {
