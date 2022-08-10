@@ -11,6 +11,7 @@
     "format": "prettier --write --plugin-search-dir=. . && eslint --fix --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "@prisma/client": "^4.2.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@tailwindcss/typography": "^0.5.4",
@@ -32,7 +33,7 @@
     "postcss-load-config": "^4.0.1",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.5.0",
-    "prisma": "^4.1.1",
+    "prisma": "^4.2.0",
     "stylelint-config-recommended": "^8.0.0",
     "svelte": "^3.44.0",
     "svelte-preprocess": "^4.10.7",
@@ -41,7 +42,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@prisma/client": "^4.1.1",
     "cookie": "^0.5.0",
     "fast-jwt": "^1.7.0",
     "pinyin-pro": "^3.11.0",

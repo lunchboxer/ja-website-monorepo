@@ -5,7 +5,7 @@
   import Error from '$lib/Error.svelte'
 
   export let thingName = 'this'
-  export let deleteFunction
+  export let deleteFunction = () => {}
   export let mini = false
   let errors = ''
   export let referrer = ''

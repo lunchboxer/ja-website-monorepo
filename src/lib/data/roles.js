@@ -17,7 +17,9 @@ function createRolesStore() {
     },
     // Patch //
     patch: async role => {
-      const response = await client(`/api/roles/${role.id}`, role, 'PATCH')
+      // no changes are made to user relation here, those are on user store
+      const { users, ...cleanRole } = role
+      const response = await client(`/api/roles/${role.id}`, cleanRole, 'PATCH')
       update(existing =>
         existing.map(r => {
           if (r.id === role.id) return response.role

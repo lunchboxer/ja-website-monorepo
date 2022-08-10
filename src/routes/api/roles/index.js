@@ -5,8 +5,7 @@ import { dev } from '$app/env'
 export const GET = async () => {
   const roles = await database.role.findMany({
     orderBy: { name: 'asc' },
-    select: {
-      name: true,
+    include: {
       users: {
         select: { id: true },
       },
@@ -25,8 +24,7 @@ export const POST = async ({ request }) => {
     }
     const role = await database.role.create({
       data: { name },
-      select: {
-        name: true,
+      include: {
         users: {
           select: { id: true },
         },
