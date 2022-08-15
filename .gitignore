@@ -8,6 +8,4 @@ node_modules
 !.env.example
 .log*
 .npmrc
-schema.json
-schema.graphql
 *.db

@@ -4,7 +4,7 @@
 
   const groupList = !$me.groups?.length
     ? 'none'
-    : $me.groups.map(group => group.name).join(', ')
+    : $me.groups.map((group) => group.name).join(', ')
 </script>
 
 <h1>User Profile</h1>

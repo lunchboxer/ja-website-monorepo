@@ -15,10 +15,10 @@
   store.get()
 
   // Either an existing user or new user
-  const addRole = async event => {
+  const assignRole = async (event) => {
     const role = inputRole || event.target.value
     try {
-      await users.addRole(role, userId)
+      await users.assignRole(role, userId)
       notifications.add({
         type: 'success',
         text: `Assigned role ${selectedRole} to user`,
@@ -29,14 +29,14 @@
       errors = error
       notifications.add({
         type: 'error',
-        text: 'Something went wrong adding role.',
+        text: 'Something went wrong assigning role.',
       })
     }
   }
   const onReset = () => {
     inputRole = ''
   }
-  $: remainingRoles = $store.filter(role => !currentRoles.includes(role.name))
+  $: remainingRoles = $store.filter((role) => !currentRoles.includes(role.name))
 </script>
 
 <h2>Assign role</h2>
@@ -47,7 +47,7 @@
   {#if remainingRoles.length > 0}
     <select
       class="select select-bordered w-full max-w-xs"
-      on:change={addRole}
+      on:change={assignRole}
       bind:value={selectedRole}
     >
       <option disabled selected value="">Pick a role to assign</option>
@@ -56,7 +56,7 @@
       {/each}
     </select>
   {/if}
-  <Form submitLabel="assign new role" onSubmit={addRole} {onReset}>
+  <Form submitLabel="assign new role" onSubmit={assignRole} {onReset}>
     <div class="form-control w-full max-w-xs">
       <Input bind:value={inputRole} label="Create a new role to assign" />
     </div>

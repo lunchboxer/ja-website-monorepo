@@ -28,7 +28,7 @@
   }
 </script>
 
-<nav class="navbar bg-base-100">
+<nav class="navbar bg-base-100 lg:hidden">
   <div class="navbar-start">
     <div class="flex-none lg:hidden">
       <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
@@ -37,18 +37,18 @@
     </div>
   </div>
   <div class="navbar-center">
-    <div class="lg:hidden">
+    <div class="lg:hidden w:100">
       <Logo />
     </div>
   </div>
   <div class="navbar-end">
     <div class="dropdown dropdown-end">
-      <label for="dropdown-menu" tabindex="0" class="btn btn-square btn-ghost">
+      <label for="user-menu" tabindex="0" class="btn btn-square btn-ghost">
         <MenuDotsIcon />
       </label>
       <ul
         tabindex="0"
-        id="dropdown-menu"
+        id="user-menu"
         class="menu dropdown-content p-2 mt-4 shadow bg-base-300 rounded-box"
       >
         {#if $session.isAuthenticated}

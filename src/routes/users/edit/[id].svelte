@@ -1,14 +1,10 @@
 <script context="module">
-  export async function load({ fetch, params }) {
-    const response = await fetch(`/api/users/${params.id}`)
-    const result = response.ok && (await response.json())
-    return {
-      status: response.status,
-      props: {
-        user: result.user,
-        errors: result.errors,
-      },
-    }
+  import { request } from '$graphql/client.js'
+  import { USER } from '$graphql/users.gql'
+  export const load = async (event) => {
+    const { id } = event.params
+    const response = await request(USER, { id }, event)
+    return { props: { loadUser: response.user } }
   }
 </script>
 
@@ -23,13 +19,13 @@
   import AssignedRoles from './_AssignedRoles.svelte'
   import DeleteThing from '$lib/DeleteThing.svelte'
 
-  export let user
+  export let loadUser
+  users.updateOne({ ...loadUser })
+  $: user = $users.find((u) => u.id === loadUser.id)
   export let errors = ''
-  users.updateOne(user)
 
-  $: user = $users.find(u => u.id === user.id)
   const onSubmit = async () => {
-    users.patch(user)
+    await users.patch(user)
     notifications.add({
       type: 'success',
       text: `Saved user ${user.username}`,
@@ -37,7 +33,7 @@
     goto('/users')
   }
   const onReset = () => {
-    user = $users.find(u => u.id === user.id)
+    users.updateOne({ ...loadUser })
   }
 </script>
 

@@ -29,7 +29,7 @@
     password = ''
     email = ''
     name = ''
-    role = ''
+    role = 'teacher'
   }
 </script>
 

@@ -1,0 +1,46 @@
+query Group($id: ID!) {
+  group(id: $id) {
+    ...AllGroupFields
+  }
+}
+
+query Groups {
+  groups {
+    ...AllGroupFields
+  }
+}
+
+mutation CreateGroup($name: String!, $grade: String!, $schoolYearId: ID!) {
+  createGroup(name: $name, grade: $grade, schoolYearId: $schoolYearId) {
+    ...AllGroupFields
+  }
+}
+
+mutation UpdateGroup($input: UpdateGroupInput!) {
+  updateGroup(input: $input) {
+    ...AllGroupFields
+  }
+}
+
+mutation DeleteGroup($id: ID!) {
+  deleteGroup(id: $id) {
+    id
+  }
+}
+
+fragment AllGroupFields on Group {
+  id
+  name
+  grade
+  teachers {
+    id
+  }
+  students {
+    id
+  }
+  schoolYear {
+    id
+  }
+  createdAt
+  updatedAt
+}

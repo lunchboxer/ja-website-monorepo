@@ -4,9 +4,8 @@
 
 <script>
   import { notifications } from '$lib/notifications/index.js'
-  import { schoolYears } from '$lib/data/schoolYears.js'
   import { students } from '$lib/data/students.js'
-  import { groups } from '$lib/data/groups.js'
+  import { activeGroups } from '$lib/data/groups.js'
   import { goto } from '$app/navigation'
   import Input from '$lib/Input.svelte'
   import Form from '$lib/Form.svelte'
@@ -15,8 +14,11 @@
   import EditGuardians from './_EditGuardians.svelte'
 
   export let id
-  let groupId
-  let student = $students.find(s => s.id === id)
+  let student = $students.find((s) => s.id === id)
+
+  let groupId = student.groups.find((group) =>
+    $activeGroups.find((g) => g.id === group.id),
+  )?.id
 
   const onSubmit = async () => {
     const { groups, guardians, createdAt, updatedAt, ...cleanStudent } = student
@@ -28,7 +30,7 @@
     goto('/students')
   }
   const onReset = () => {
-    student = $students.find(s => s.id === id)
+    student = $students.find((s) => s.id === id)
   }
 
   const makePinyin = async () => {
@@ -37,11 +39,6 @@
       const result = response.ok && (await response.json())
       student.pinyinName = result.pinyin
     }
-  }
-  if ($groups && $schoolYears) {
-    groupId = $groups?.find(
-      group => group.schoolYearId === $schoolYears.active,
-    ).id
   }
 </script>
 

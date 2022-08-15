@@ -1,16 +1,17 @@
 <script>
+  /* eslint-disable no-undef-init, unicorn/no-useless-undefined */
   let input
-  export let value = ''
+  export let value = undefined
   export let label = ''
   export let error = false
   export let required = false
   export let pattern = '^.+$'
   export let minlength = 1
-  export let maxlength
+  export let maxlength = undefined
   export let type = 'text'
   export let description = ''
-  export let min
-  export let max
+  export let min = undefined
+  export let max = undefined
   export let onChange = () => {}
   let show = false
 

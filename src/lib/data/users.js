@@ -1,5 +1,14 @@
 import { writable } from 'svelte/store'
-import { client } from '$lib/data/fetch-client.js'
+import { request } from '$graphql/client.js'
+import {
+  USERS,
+  USER_COUNT,
+  DELETE_USER,
+  UPDATE_USER,
+  CREATE_USER,
+  ASSIGN_ROLE,
+  UNASSIGN_ROLE,
+} from '$graphql/users.gql'
 
 function createUsersStore() {
   const { subscribe, set, update } = writable([])
@@ -8,22 +17,22 @@ function createUsersStore() {
     subscribe,
     // Get //
     get: async () => {
-      const response = await client('/api/users', undefined, 'GET')
+      const response = await request(USERS)
       response && set(response.users)
     },
     count: async () => {
-      const response = await client('/api/users/count', undefined, 'GET')
-      return response?.count?._count?.id
+      const response = await request(USER_COUNT)
+      return response.userCount
     },
     // Create //
-    create: async parameters => {
-      const response = await client('/api/users', parameters)
-      update(existing => [...existing, response.user])
+    create: async (user) => {
+      const response = await request(CREATE_USER, { input: { ...user } })
+      update((existing) => [...existing, response.createUser])
     },
     updateOne: function (user) {
-      update(existing => {
+      update((existing) => {
         let sawUser = false
-        const previousUsers = existing.map(u => {
+        const previousUsers = existing.map((u) => {
           if (u.id !== user.id) return u
           sawUser = true
           return user
@@ -34,29 +43,25 @@ function createUsersStore() {
     },
     // Patch //
     patch: async function (user) {
-      const response = await client(`/api/users/${user.id}`, user, 'PATCH')
-      this.updateOne(response.user)
+      const { id, username, email, name } = user
+      // probably need to clean user object before sending
+      const response = await request(UPDATE_USER, {
+        input: { id, username, email, name },
+      })
+      this.updateOne(response.updateUser)
     },
-    removeRole: async function (role, userId) {
-      const response = await client(
-        '/api/roles/unassign',
-        { role, userId },
-        'PATCH',
-      )
-      this.updateOne(response.user)
+    unassignRole: async function (role, userId) {
+      const response = await request(UNASSIGN_ROLE, { role, userId })
+      this.updateOne(response.unassignRole)
     },
-    addRole: async function (role, userId) {
-      const response = await client(
-        '/api/roles/assign',
-        { role, userId },
-        'PATCH',
-      )
-      this.updateOne(response.user)
+    assignRole: async function (role, userId) {
+      const response = await request(ASSIGN_ROLE, { role, userId })
+      this.updateOne(response.assignRole)
     },
     // Remove //
-    remove: async id => {
-      await client(`/api/users/${id}`, id, 'DELETE')
-      update(existing => existing.filter(u => u.id !== id))
+    remove: async (id) => {
+      await request(DELETE_USER, { id })
+      update((existing) => existing.filter((u) => u.id !== id))
     },
   }
 }

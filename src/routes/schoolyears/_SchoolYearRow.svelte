@@ -2,7 +2,7 @@
   import EditButton from '$lib/EditButton.svelte'
   export let schoolYear
 
-  const dateString = string => {
+  const dateString = (string) => {
     const date = new Date(string)
     return date.toDateString()
   }

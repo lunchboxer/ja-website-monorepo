@@ -6,7 +6,7 @@
   import { users } from '$lib/data/users.js'
   export let id
 
-  $: user = $users.find(u => u.id === id)
+  $: user = $users.find((u) => u.id === id)
 </script>
 
 {#if user}

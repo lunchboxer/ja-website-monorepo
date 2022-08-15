@@ -2,7 +2,7 @@
   import ActiveSchoolYearSelect from '$lib/ActiveSchoolYearSelect.svelte'
   import AddSchoolYear from './_AddSchoolYear.svelte'
   import SchoolYearRow from './_SchoolYearRow.svelte'
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
 </script>
 
 <h1>School years</h1>

@@ -1,5 +1,5 @@
 <script>
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { notifications } from '$lib/notifications/index.js'
   import Form from '$lib/Form.svelte'
   import Input from '$lib/Input.svelte'

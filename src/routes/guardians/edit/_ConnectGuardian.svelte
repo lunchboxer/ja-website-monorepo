@@ -22,7 +22,7 @@
     selectedStudent = ''
     groupId = ''
   }
-  $: exclude = guardian.students.map(s => s.id)
+  $: exclude = guardian.students.map((s) => s.id)
 </script>
 
 <h2>Connect to a student</h2>

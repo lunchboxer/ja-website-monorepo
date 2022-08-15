@@ -4,7 +4,7 @@
 
 <script>
   import { notifications } from '$lib/notifications/index.js'
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { groups } from '$lib/data/groups.js'
   import { goto } from '$app/navigation'
   import Input from '$lib/Input.svelte'
@@ -14,7 +14,7 @@
 
   export let id
 
-  let group = $groups.find(s => s.id === id)
+  let group = $groups.find((s) => s.id === id)
 
   const onSubmit = async () => {
     await groups.patch(group)
@@ -25,7 +25,7 @@
     goto('/groups')
   }
   const onReset = () => {
-    group = $groups.find(s => s.id === id)
+    group = { ...$groups.find((g) => g.id === id) }
   }
 </script>
 
@@ -41,7 +41,7 @@
       </label>
       <select
         name="schoolYearSelect"
-        bind:value={group.schoolYearId}
+        bind:value={group.schoolYear.id}
         class="select select-bordered w-full max-w-xs"
       >
         <option disabled value=""> Select a school year </option>

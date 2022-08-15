@@ -15,15 +15,15 @@ const createNotificationStore = () => {
 
   return {
     subscribe,
-    remove: id => {
-      update(previous => {
+    remove: (id) => {
+      update((previous) => {
         const { [id]: value, ...withoutThisOne } = previous
         return withoutThisOne
       })
     },
     add: function (message) {
       const id = generateKey()
-      update(previous => ({ ...previous, [id]: message }))
+      update((previous) => ({ ...previous, [id]: message }))
       setTimeout(() => {
         this.remove(id)
       }, selfDestructDelay)

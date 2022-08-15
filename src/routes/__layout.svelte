@@ -1,3 +1,13 @@
+<script context="module">
+  import { request } from '$graphql/client.js'
+  import { INITIAL_DATA } from '$graphql/initial-data.gql'
+
+  export async function load(event) {
+    const result = await request(INITIAL_DATA, undefined, event)
+    return { props: { data: result } }
+  }
+</script>
+
 <script>
   import '../app.css'
   import Header from '$lib/Header.svelte'
@@ -8,6 +18,7 @@
   import SidebarNav from '$lib/SidebarNav.svelte'
   import InitialDataLoader from '$lib/InitialDataLoader.svelte'
 
+  export let data = {}
   // sidebar binding
   let checked = ''
   let ready = false
@@ -16,7 +27,7 @@
 </script>
 
 {#if $session.isAuthenticated}
-  <InitialDataLoader bind:ready />
+  <InitialDataLoader bind:ready {data} />
 {/if}
 
 <div class="drawer drawer-mobile">

@@ -4,7 +4,7 @@
 
   export let id
 
-  const group = $groups.find(group => group.id === id)
+  const group = $groups.find((group) => group.id === id)
 
   const deleteGroup = () => groups.remove(id)
 </script>

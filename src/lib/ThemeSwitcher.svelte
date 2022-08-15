@@ -16,7 +16,7 @@
 
   export const theme = createThemeStore()
 
-  export const themeSwitcher = theme => {
+  export const themeSwitcher = (theme) => {
     if (theme !== 'light' && theme !== 'dracula') return
     if (!browser) return
     localStorage.theme = theme

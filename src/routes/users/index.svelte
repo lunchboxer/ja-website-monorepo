@@ -1,35 +1,29 @@
 <script context="module">
-  export async function load({ fetch }) {
-    const response = await fetch('/api/users')
-    const result = response.ok && (await response.json())
-    return {
-      status: response.status,
-      props: {
-        users: result.users,
-        errors: result.errors,
-      },
-    }
+  import { request } from '$graphql/client.js'
+  import { USERS } from '$graphql/users.gql'
+  export const load = async (event) => {
+    const response = await request(USERS, undefined, event)
+    return { props: { loadUsers: response.users } }
   }
 </script>
 
 <script>
-  import { users as store } from '$lib/data/users.js'
+  import { users } from '$lib/data/users.js'
   import Error from '$lib/Error.svelte'
   import AddUser from './_AddUser.svelte'
   import UserRow from './_UserRow.svelte'
 
-  export let users
   export let errors = ''
-
-  store.set(users)
+  export let loadUsers = []
+  users.set(loadUsers)
 </script>
 
 <h1>Users</h1>
 
 <Error {errors} />
-{#if $store}
-  {#if $store.length > 0}
-    {$store.length} users
+{#if $users}
+  {#if $users.length > 0}
+    {$users.length} users
     <div class="overflow-x-auto w-full">
       <table class="table table-zebra w-full">
         <!-- head -->
@@ -42,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          {#each $store as user}
+          {#each $users as user}
             <UserRow {user} />
           {/each}
         </tbody>
@@ -52,5 +46,4 @@
     <p>There are no users somehow.</p>
   {/if}
 {/if}
-
 <AddUser />

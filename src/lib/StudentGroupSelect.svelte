@@ -1,32 +1,28 @@
 <script>
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { activeGroups } from '$lib/data/groups.js'
   import { allGrades } from '$lib/data/constants.js'
+  import Select from '$lib/Select.svelte'
 
   export let groupId = ''
+  export let required = false
 
   $: activeSchoolYear = $schoolYears?.all?.find(
-    y => y.id === $schoolYears.active,
+    (y) => y.id === $schoolYears.active,
   )
-  const gradeName = group => allGrades.find(g => g.value === group.grade).name
+  const gradeName = (group) =>
+    allGrades.find((g) => g.value === group.grade).name
 </script>
 
 {#if $activeGroups}
-  <div class="form-control w-full max-w-xs">
-    <label class="label" for="groupSelect">
-      <span class="label-text">
-        Group (school year {activeSchoolYear?.name})
-      </span>
-    </label>
-    <select
-      name="groupSelect"
-      bind:value={groupId}
-      class="select select-bordered"
-    >
-      <option disabled value=""> Select a group </option>
-      {#each $activeGroups as group}
-        <option value={group.id}>{group.name} ({gradeName(group)})</option>
-      {/each}
-    </select>
-  </div>
+  <Select
+    label="Group (school year {activeSchoolYear?.name})"
+    bind:value={groupId}
+    {required}
+  >
+    <option disabled value=""> Select a group </option>
+    {#each $activeGroups as group}
+      <option value={group.id}>{group.name} ({gradeName(group)})</option>
+    {/each}
+  </Select>
 {/if}

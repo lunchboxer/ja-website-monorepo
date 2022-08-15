@@ -1,0 +1,33 @@
+query Roles {
+  roles {
+    ...AllRoleFields
+  }
+}
+
+mutation CreateRole($name: String!) {
+  createRole(name: $name) {
+    ...AllRoleFields
+  }
+}
+
+mutation RenameRole($id: ID!, $name: String!) {
+  renameRole(id: $id, name: $name) {
+    ...AllRoleFields
+  }
+}
+
+mutation DeleteRole($id: ID!) {
+  deleteRole(id: $id) {
+    id
+  }
+}
+
+fragment AllRoleFields on Role {
+  id
+  name
+  users {
+    id
+  }
+  createdAt
+  updatedAt
+}

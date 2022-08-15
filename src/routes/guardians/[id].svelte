@@ -6,7 +6,7 @@
   import { guardians } from '$lib/data/guardians.js'
   import { getDateString } from '$lib/data/utils.js'
   export let id
-  $: guardian = $guardians.find(g => g.id === id)
+  $: guardian = $guardians.find((g) => g.id === id)
 </script>
 
 {#if guardian}

@@ -8,14 +8,14 @@
   import { guardians } from '$lib/data/guardians.js'
   export let id
 
-  $: student = $students.find(s => s.id === id)
-  const ageString = bdate => {
+  $: student = $students.find((s) => s.id === id)
+  const ageString = (bdate) => {
     if (!bdate) return
     const { years, months, days } = getFullAge(bdate)
     return `${years} yrs, ${months} m, ${days} d old`
   }
-  $: studentGuardians = $guardians.filter(g =>
-    g.students.some(s => s.id === id),
+  $: studentGuardians = $guardians.filter((g) =>
+    g.students.some((s) => s.id === id),
   )
 </script>
 

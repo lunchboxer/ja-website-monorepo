@@ -1,0 +1,42 @@
+query SchoolYears {
+  schoolYears {
+    ...AllSchoolYearFields
+  }
+}
+
+query SchoolYear($id: ID!) {
+  schoolYear(id: $id) {
+    ...AllSchoolYearFields
+  }
+}
+
+mutation CreateSchoolYear($input: CreateSchoolYearInput!) {
+  createSchoolYear(input: $input) {
+    ...AllSchoolYearFields
+  }
+}
+
+mutation UpdateSchoolYear($input: UpdateSchoolYearInput!) {
+  updateSchoolYear(input: $input) {
+    ...AllSchoolYearFields
+  }
+}
+
+mutation DeleteSchoolYear($id: ID!) {
+  deleteSchoolYear(id: $id) {
+    id
+  }
+}
+
+fragment AllSchoolYearFields on SchoolYear {
+  id
+  name
+  startDate
+  endDate
+  groups {
+    id
+    name
+  }
+  createdAt
+  updatedAt
+}

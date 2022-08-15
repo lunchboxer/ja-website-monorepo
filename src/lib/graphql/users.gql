@@ -1,0 +1,61 @@
+query Users {
+  users {
+    ...AllUserFields
+  }
+}
+
+query User($id: ID!) {
+  user(id: $id) {
+    ...AllUserFields
+  }
+}
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    ...AllUserFields
+  }
+}
+
+mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    ...AllUserFields
+  }
+}
+
+mutation DeleteUser($id: ID!) {
+  deleteUser(id: $id) {
+    id
+  }
+}
+
+mutation AssignRole($role: String!, $userId: ID!) {
+  assignRole(role: $role, userId: $userId) {
+    ...AllUserFields
+  }
+}
+
+mutation UnassignRole($role: String!, $userId: ID!) {
+  unassignRole(role: $role, userId: $userId) {
+    ...AllUserFields
+  }
+}
+
+query UserCount {
+  userCount
+}
+
+fragment AllUserFields on User {
+  id
+  username
+  email
+  isVerified
+  name
+  studentId
+  createdAt
+  updatedAt
+  roles
+  groups {
+    id
+    name
+  }
+}

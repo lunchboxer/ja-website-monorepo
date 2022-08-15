@@ -1,0 +1,48 @@
+query Students {
+  students {
+    ...AllStudentFields
+  }
+}
+
+query Student($id: ID!) {
+  student(id: $id) {
+    ...AllStudentFields
+  }
+}
+
+mutation CreateStudent($input: CreateStudentInput!) {
+  createStudent(input: $input) {
+    ...AllStudentFields
+  }
+}
+
+mutation UpdateStudent($input: UpdateStudentInput!) {
+  updateStudent(input: $input) {
+    ...AllStudentFields
+  }
+}
+
+mutation DeleteStudent($id: ID!) {
+  deleteStudent(id: $id) {
+    id
+  }
+}
+
+fragment AllStudentFields on Student {
+  id
+  birthdate
+  chineseName
+  commonName
+  pinyinName
+  idName
+  englishName
+  gender
+  languages
+  nationality
+  updatedAt
+  createdAt
+  groups {
+    id
+    name
+  }
+}

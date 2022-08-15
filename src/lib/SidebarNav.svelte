@@ -1,12 +1,13 @@
 <script>
-  import Logo from '$lib/Logo.svelte'
   import { guardians } from '$lib/data/guardians.js'
   import { students } from '$lib/data/students.js'
   import { groups } from '$lib/data/groups.js'
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { school } from '$lib/data/school.js'
   import { me } from '$lib/data/me.js'
   import { users } from '$lib/data/users.js'
+  import Logo from '$lib/Logo.svelte'
+
   export let checked = ''
 </script>
 
@@ -71,6 +72,9 @@
             {/await}
           {/if}
         </a>
+      </li>
+      <li class="m-1">
+        <a href="/roles"> Roles </a>
       </li>
     {/if}
   </ul>

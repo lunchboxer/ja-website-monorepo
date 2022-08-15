@@ -44,6 +44,6 @@
   <input hidden value={studentId} name="studentId" />
   {#if !studentId}
     <h3>Connect new guardian to a student</h3>
-    <StudentPicker bind:selectedStudent />
+    <StudentPicker bind:selectedStudent required="true" />
   {/if}
 </Form>

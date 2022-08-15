@@ -7,18 +7,18 @@
   export let userId = ''
   export let roles = []
 
-  const removeRole = async role => {
+  const unassignRole = async (role) => {
     try {
-      await users.removeRole(role, userId)
+      await users.unassignRole(role, userId)
       notifications.add({
         type: 'success',
-        text: `Removed role ${role} from user`,
+        text: `Unassigned role ${role} from user`,
       })
     } catch (error) {
       errors = error
       notifications.add({
         type: 'error',
-        text: 'Something went wrong removing role.',
+        text: 'Something went wrong unassigning role.',
       })
     }
   }
@@ -34,7 +34,7 @@
       <div class="badge gap-2 mx-1">
         <button
           on:click={() => {
-            removeRole(role)
+            unassignRole(role)
           }}
         >
           ×

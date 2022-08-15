@@ -1,5 +1,11 @@
 import { writable } from 'svelte/store'
-import { client } from '$lib/data/fetch-client.js'
+import { request } from '$graphql/client.js'
+import {
+  ROLES,
+  CREATE_ROLE,
+  RENAME_ROLE,
+  DELETE_ROLE,
+} from '$graphql/roles.gql'
 
 function createRolesStore() {
   const { subscribe, set, update } = writable([])
@@ -7,30 +13,30 @@ function createRolesStore() {
     subscribe,
     // Get //
     get: async () => {
-      const response = await client('/api/roles', undefined, 'GET')
+      const response = await request(ROLES)
       response && set(response.roles)
     },
     // Create //
-    create: async parameters => {
-      const response = await client('/api/roles', parameters)
-      update(existing => [...existing, response.role])
+    create: async (name) => {
+      const response = await request(CREATE_ROLE, { name })
+      update((existing) => [...existing, response.createRole])
     },
     // Patch //
-    patch: async role => {
+    patch: async (role) => {
       // no changes are made to user relation here, those are on user store
       const { users, ...cleanRole } = role
-      const response = await client(`/api/roles/${role.id}`, cleanRole, 'PATCH')
-      update(existing =>
-        existing.map(r => {
-          if (r.id === role.id) return response.role
+      const response = await request(RENAME_ROLE, cleanRole)
+      update((existing) =>
+        existing.map((r) => {
+          if (r.id === role.id) return response.renameRole
           return r
         }),
       )
     },
     // Remove //
-    remove: async id => {
-      await client(`/api/roles/${id}`, id, 'DELETE')
-      update(existing => existing.filter(r => r.id !== id))
+    remove: async (id) => {
+      await request(DELETE_ROLE, { id })
+      update((existing) => existing.filter((r) => r.id !== id))
     },
   }
 }

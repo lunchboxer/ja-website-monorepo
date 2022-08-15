@@ -1,5 +1,5 @@
 <script>
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
 
   export let selected = ''
   // in case the value passed in is null or undefined

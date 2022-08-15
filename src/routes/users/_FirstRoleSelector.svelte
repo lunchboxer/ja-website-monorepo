@@ -1,5 +1,6 @@
 <script>
   import Input from '$lib/Input.svelte'
+  import Select from '$lib/Select.svelte'
   import { roles } from '$lib/data/roles.js'
 
   export let role
@@ -21,25 +22,22 @@
 </script>
 
 {#if $roles}
-  <div class="form-control w-full max-w-xs">
-    <label class="label" for="roleSelector">
-      <span class="label-text">Pick an existing role</span>
-    </label>
-    <select
-      class="select select-bordered w-full max-w-xs"
-      on:change={onSelect}
-      bind:value={selectedRole}
-    >
-      <option disabled selected value="">Pick a role to assign</option>
-      {#each $roles as role}
-        <option value={role.name}>{role.name}</option>
-      {/each}
-    </select>
+  <Select
+    required={!inputRole}
+    label="Pick an existing role"
+    bind:value={selectedRole}
+    onChange={onSelect}
+  >
+    <option disabled selected value="">Pick a role to assign</option>
+    {#each $roles as role}
+      <option value={role.name}>{role.name}</option>
+    {/each}
+  </Select>
 
-    <Input
-      bind:value={inputRole}
-      onChange={onInput}
-      label="Or assign a new role"
-    />
-  </div>
+  <Input
+    bind:value={inputRole}
+    onChange={onInput}
+    label="Or assign a new role"
+    required={!selectedRole}
+  />
 {/if}

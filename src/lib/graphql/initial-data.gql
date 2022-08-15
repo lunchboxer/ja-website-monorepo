@@ -1,0 +1,83 @@
+query InitialData {
+  school {
+    id
+    name
+    address
+  }
+  schoolYears {
+    ...AllSchoolYearFields
+  }
+  groups {
+    ...AllGroupFields
+  }
+  students {
+    ...AllStudentFields
+  }
+  guardians {
+    ...AllGuardianFields
+  }
+}
+
+fragment AllSchoolYearFields on SchoolYear {
+  id
+  name
+  startDate
+  endDate
+  groups {
+    id
+    name
+  }
+  createdAt
+  updatedAt
+}
+
+fragment AllGroupFields on Group {
+  id
+  name
+  grade
+  teachers {
+    id
+  }
+  students {
+    id
+  }
+  schoolYear {
+    id
+  }
+  createdAt
+  updatedAt
+}
+
+fragment AllStudentFields on Student {
+  id
+  birthdate
+  chineseName
+  commonName
+  pinyinName
+  idName
+  englishName
+  gender
+  languages
+  nationality
+  updatedAt
+  createdAt
+  groups {
+    id
+    name
+  }
+}
+
+fragment AllGuardianFields on Guardian {
+  id
+  name
+  email
+  nationality
+  phone
+  relationship
+  updatedAt
+  createdAt
+  students {
+    id
+    commonName
+  }
+}

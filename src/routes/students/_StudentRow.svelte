@@ -1,17 +1,19 @@
 <script>
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
+  import { groups } from '$lib/data/groups.js'
   import { upcomingBirthdays } from '$lib/data/students.js'
   import { getAge } from '$lib/data/utils.js'
   import EditButton from '$lib/EditButton.svelte'
   export let student
 
-  const yearName = group => {
-    const year = $schoolYears.all.find(y => y.id === group.schoolYearId)
+  const yearName = (groupId) => {
+    const group = $groups.find((g) => g.id === groupId)
+    const year = $schoolYears.all.find((y) => y.id === group.schoolYear.id)
     return year?.name
   }
   $: upcomingBday =
     $upcomingBirthdays &&
-    $upcomingBirthdays.find(bday => bday.id === student.id)
+    $upcomingBirthdays.find((bday) => bday.id === student.id)
 </script>
 
 {#if student}
@@ -30,7 +32,7 @@
     </td>
     <td>
       {#each student.groups as group}
-        <a href="/groups/{group.id}">{group.name} ({yearName(group)})</a>
+        <a href="/groups/{group.id}">{group.name} ({yearName(group.id)})</a>
       {/each}
     </td>
     <td>

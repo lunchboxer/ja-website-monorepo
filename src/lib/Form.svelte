@@ -13,7 +13,9 @@
   export let submitLabel = 'Submit'
   export let onSubmit = () => {}
   export let onReset = () => {}
-  export let onError = () => {}
+  export let onError = () => {
+    notifications.add({ type: 'error', text: 'Something went wrong.' })
+  }
 
   const submit = async () => {
     const isValid = form.checkValidity()

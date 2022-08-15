@@ -1,48 +1,53 @@
 import { writable, derived } from 'svelte/store'
-import { client } from '$lib/data/fetch-client.js'
+import { request } from '$graphql/client.js'
 import { daysToBirthday, getAge } from '$lib/data/utils.js'
+import {
+  STUDENTS,
+  CREATE_STUDENT,
+  UPDATE_STUDENT,
+  DELETE_STUDENT,
+} from '$graphql/students.gql'
 
 function createStudentsStore() {
   const { subscribe, set, update } = writable([])
   return {
     subscribe,
+    set,
     // Get //
     get: async () => {
-      const response = await client('/api/students', undefined, 'GET')
+      const response = await request(STUDENTS)
       response && set(response.students)
     },
     // Create //
-    create: async parameters => {
-      const response = await client('/api/students', parameters)
-      update(existing => [...existing, response.student])
+    create: async (student) => {
+      const response = await request(CREATE_STUDENT, { input: { ...student } })
+      update((existing) => [...existing, response.createStudent])
     },
     // Patch //
-    patch: async student => {
+    patch: async (student) => {
       const { groups, guardians, createdAt, updatedAt, ...cleanStudent } =
         student
-      const response = await client(
-        `/api/students/${student.id}`,
-        cleanStudent,
-        'PATCH',
-      )
-      update(existing =>
-        existing.map(s => {
-          if (s.id === student.id) return response.student
+      const response = await request(UPDATE_STUDENT, {
+        input: { ...cleanStudent },
+      })
+      update((existing) =>
+        existing.map((s) => {
+          if (s.id === student.id) return response.updateStudent
           return s
         }),
       )
     },
     // Remove //
-    remove: async id => {
-      await client(`/api/students/${id}`, id, 'DELETE')
-      update(existing => existing.filter(s => s.id !== id))
+    remove: async (id) => {
+      await request(DELETE_STUDENT, { id })
+      update((existing) => existing.filter((s) => s.id !== id))
     },
   }
 }
 
 export const students = createStudentsStore()
 
-export const upcomingBirthdays = derived(students, $students => {
+export const upcomingBirthdays = derived(students, ($students) => {
   const upcoming = []
   for (const student of $students) {
     const days = daysToBirthday(student.birthdate)

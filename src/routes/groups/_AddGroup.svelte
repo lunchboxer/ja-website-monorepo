@@ -1,5 +1,5 @@
 <script>
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { groups } from '$lib/data/groups.js'
   import { notifications } from '$lib/notifications/index.js'
   import Form from '$lib/Form.svelte'
@@ -19,7 +19,7 @@
     grade = ''
   }
   $: activeSchoolYear = $schoolYears.all.find(
-    year => year.id === $schoolYears.active,
+    (year) => year.id === $schoolYears.active,
   )
 </script>
 

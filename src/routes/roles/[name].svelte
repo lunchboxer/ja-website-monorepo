@@ -14,7 +14,7 @@
   let editFormShowing = false
   let newName = ''
 
-  $: role = $roles.find(r => r.name === name)
+  $: role = $roles.find((r) => r.name === name)
   if ($roles && $roles.length === 0) roles.get()
 
   const editRole = async () => {

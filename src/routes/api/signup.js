@@ -11,7 +11,7 @@ const tokenExpiresIn = 30 // days
 const encryptPassword = (password, salt) => {
   return scryptSync(password, salt, 32).toString('hex')
 }
-const hashPassword = password => {
+const hashPassword = (password) => {
   const salt = randomBytes(16).toString('hex')
   return encryptPassword(password, salt) + salt
 }
@@ -26,6 +26,9 @@ function isValidEmail(email) {
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export const POST = async ({ request, locals }) => {
   try {
+    if (event.locals.oneUserExists) {
+      throw new Error('Initial user already exists')
+    }
     const { username, name, email, password } = await request.json()
     if (!isValidEmail(email)) {
       throw new Error('email address not valid')

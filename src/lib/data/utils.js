@@ -80,7 +80,7 @@ export async function disconnectOtherGroupsThisSchoolYear(
   })
   if (existingGroups.groups.length === 0) return
   // put the results in a form that can be used to disconnec from old groups
-  const idObjectsArray = existingGroups.groups.map(g => ({ id: g.id }))
+  const idObjectsArray = existingGroups.groups.map((g) => ({ id: g.id }))
   await database.student.update({
     where: { id: studentId },
     data: {

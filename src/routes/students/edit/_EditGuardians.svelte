@@ -9,15 +9,15 @@
   let errors = ''
   let selectedGuardian = ''
 
-  $: studentGuardians = $guardians.filter(g =>
-    g.students?.some(s => s.id === id),
+  $: studentGuardians = $guardians.filter((g) =>
+    g.students?.some((s) => s.id === id),
   )
   $: remainingGuardians = $guardians.filter(
-    g => !g.students?.some(s => s.id === id),
+    (g) => !g.students?.some((s) => s.id === id),
   )
 
-  const deleteGuardian = guardianId => guardians.remove(guardianId)
-  const disconnect = async guardian => {
+  const deleteGuardian = (guardianId) => guardians.remove(guardianId)
+  const disconnect = async (guardian) => {
     try {
       await guardians.disconnect(guardian.id, id)
       notifications.add({
@@ -28,7 +28,7 @@
       errors = error
     }
   }
-  const connect = async guardianId => {
+  const connect = async (guardianId) => {
     try {
       await guardians.connect(guardianId, id)
       notifications.add({

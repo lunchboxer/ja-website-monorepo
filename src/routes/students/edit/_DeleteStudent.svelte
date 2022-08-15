@@ -4,7 +4,7 @@
 
   export let id
 
-  $: student = $students.find(s => s.id === id)
+  $: student = $students.find((s) => s.id === id)
 
   const deleteStudent = async () => await students.remove(id)
 </script>

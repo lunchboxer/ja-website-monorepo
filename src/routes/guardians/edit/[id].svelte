@@ -13,7 +13,7 @@
   import ConnectedStudent from './_ConnectedStudent.svelte'
 
   export let id
-  $: guardian = $guardians && $guardians.find(g => g.id === id)
+  $: guardian = $guardians && $guardians.find((g) => g.id === id)
 
   const onSubmit = async () => {
     await guardians.patch(guardian)
@@ -24,7 +24,7 @@
     goto('/guardians')
   }
   const onReset = () => {
-    guardian = $guardians && $guardians.find(g => g.id === id)
+    guardian = $guardians && $guardians.find((g) => g.id === id)
   }
 </script>
 

@@ -4,8 +4,8 @@ import adapter from '@sveltejs/adapter-auto'
 const config = {
   kit: {
     adapter: adapter(),
-    prerender: {
-      default: true,
+    alias: {
+      $graphql: './src/lib/graphql',
     },
   },
 }

@@ -4,14 +4,14 @@
 
 <script>
   import { notifications } from '$lib/notifications/index.js'
-  import { schoolYears } from '$lib/data/schoolYears.js'
+  import { schoolYears } from '$lib/data/school-years.js'
   import { goto } from '$app/navigation'
   import Input from '$lib/Input.svelte'
   import Form from '$lib/Form.svelte'
   import DeleteSchoolYear from '../_DeleteSchoolYear.svelte'
 
   export let id
-  let schoolYear = $schoolYears?.all.find(year => year.id === id)
+  let schoolYear = $schoolYears?.all.find((year) => year.id === id)
 
   const onSubmit = async () => {
     await schoolYears.patch(schoolYear)
@@ -22,7 +22,7 @@
     goto('/schoolyears')
   }
   const onReset = () => {
-    schoolYear = $schoolYears?.all.find(year => year.id === id)
+    schoolYear = $schoolYears?.all.find((year) => year.id === id)
   }
 </script>
 

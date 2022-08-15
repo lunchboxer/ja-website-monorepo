@@ -1,0 +1,15 @@
+query School {
+  school {
+    id
+    name
+    address
+  }
+}
+
+mutation UpdateSchool($name: String, $address: String) {
+  updateSchool(name: $name, address: $address) {
+    id
+    name
+    address
+  }
+}

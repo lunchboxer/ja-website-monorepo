@@ -1,0 +1,50 @@
+query Guardians {
+  guardians {
+    ...AllGuardianFields
+  }
+}
+
+mutation CreateGuardian($input: CreateGuardianInput!) {
+  createGuardian(input: $input) {
+    ...AllGuardianFields
+  }
+}
+
+mutation UpdateGuardian($input: UpdateGuardianInput!) {
+  updateGuardian(input: $input) {
+    ...AllGuardianFields
+  }
+}
+
+mutation DeleteGuardian($id: ID!) {
+  deleteGuardian(id: $id) {
+    id
+  }
+}
+
+mutation DisconnectGuardian($guardianId: ID!, $studentId: ID!) {
+  disconnectGuardian(guardianId: $guardianId, studentId: $studentId) {
+    ...AllGuardianFields
+  }
+}
+
+mutation ConnectGuardian($guardianId: ID!, $studentId: ID!) {
+  connectGuardian(guardianId: $guardianId, studentId: $studentId) {
+    ...AllGuardianFields
+  }
+}
+
+fragment AllGuardianFields on Guardian {
+  id
+  name
+  email
+  nationality
+  phone
+  relationship
+  updatedAt
+  createdAt
+  students {
+    id
+    commonName
+  }
+}

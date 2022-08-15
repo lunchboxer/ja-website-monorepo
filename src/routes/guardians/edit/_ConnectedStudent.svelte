@@ -5,7 +5,7 @@
   export let student
   export let guardianId
   export let errors = ''
-  const disconnect = async student => {
+  const disconnect = async (student) => {
     try {
       await guardians.disconnect(guardianId, student.id)
       notifications.add({
