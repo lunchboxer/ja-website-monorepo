@@ -28,14 +28,14 @@ mutation DeleteUser($id: ID!) {
   }
 }
 
-mutation AssignRole($role: String!, $userId: ID!) {
-  assignRole(role: $role, userId: $userId) {
+mutation AssignRole($roleName: String!, $userId: ID!) {
+  assignRole(roleName: $roleName, userId: $userId) {
     ...AllUserFields
   }
 }
 
-mutation UnassignRole($role: String!, $userId: ID!) {
-  unassignRole(role: $role, userId: $userId) {
+mutation UnassignRole($roleName: String!, $userId: ID!) {
+  unassignRole(roleName: $roleName, userId: $userId) {
     ...AllUserFields
   }
 }

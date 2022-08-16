@@ -3,42 +3,17 @@ import { applyMiddleware } from 'graphql-middleware'
 import { getGraphQLParameters, processRequest } from 'graphql-helix'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import { readFileSync } from 'node:fs'
-import { GraphQLError, parse as parseIt, validate as validateIt } from 'graphql'
+import { parse as parseIt, validate as validateIt } from 'graphql'
 import { database } from '$lib/data/database.js'
 import { resolvers } from './resolvers/index.js'
 import { permissions } from './permissions.js'
-import { dev } from '$app/env'
+import { handleErrors } from './error-handler.js'
 
 const cache = lru(1000, 60 * 60 * 1000)
 
 const typeDefs = [
   readFileSync(new URL('schema.graphql', import.meta.url), 'utf8').toString(),
 ]
-
-const handleErrors = async (resolve, root, parameters, context, info) => {
-  try {
-    const result = await resolve(root, parameters, context, info)
-    if (dev && result?.payload?.errors) {
-      for (const error of result.payload.errors) {
-        console.error(error)
-      }
-    }
-    return result
-  } catch (error) {
-    dev && console.error(error)
-    // Expected Error that we need to forward to client
-    if (error instanceof GraphQLError) {
-      throw error
-    }
-    return new GraphQLError(
-      'Sorry, something went wrong',
-      error.nodes,
-      error.source,
-      error.positions,
-      error.path,
-    )
-  }
-}
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 const schemaWithPermissions = applyMiddleware(

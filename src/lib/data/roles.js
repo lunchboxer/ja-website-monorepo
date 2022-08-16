@@ -5,16 +5,23 @@ import {
   CREATE_ROLE,
   RENAME_ROLE,
   DELETE_ROLE,
+  ROLE_COUNT,
 } from '$graphql/roles.gql'
 
 function createRolesStore() {
   const { subscribe, set, update } = writable([])
   return {
     subscribe,
+    update,
+    set,
     // Get //
     get: async () => {
       const response = await request(ROLES)
       response && set(response.roles)
+    },
+    count: async () => {
+      const response = await request(ROLE_COUNT)
+      return response.roleCount
     },
     // Create //
     create: async (name) => {
@@ -22,13 +29,16 @@ function createRolesStore() {
       update((existing) => [...existing, response.createRole])
     },
     // Patch //
-    patch: async (role) => {
+    patch: async function (role) {
       // no changes are made to user relation here, those are on user store
       const { users, ...cleanRole } = role
       const response = await request(RENAME_ROLE, cleanRole)
+      this.updateOne(response.renameRole)
+    },
+    updateOne: function (role) {
       update((existing) =>
         existing.map((r) => {
-          if (r.id === role.id) return response.renameRole
+          if (r.id === role.id) return role
           return r
         }),
       )

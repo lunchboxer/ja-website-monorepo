@@ -9,9 +9,9 @@
   let endDate
 
   const onReset = () => {
-    name = ''
-    startDate = ''
-    endDate = ''
+    name = undefined
+    startDate = undefined
+    endDate = undefined
   }
   const onSubmit = async () => {
     await schoolYears.create({ name, startDate, endDate })

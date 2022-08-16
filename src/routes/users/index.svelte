@@ -26,7 +26,6 @@
     {$users.length} users
     <div class="overflow-x-auto w-full">
       <table class="table table-zebra w-full">
-        <!-- head -->
         <thead>
           <tr>
             <th>Username</th>

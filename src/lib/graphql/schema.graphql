@@ -11,8 +11,8 @@ type Mutation {
   updateUser(input: UpdateUserInput!): User
   deleteUser(id: ID!): User
   changePassword(id: ID!, newPassword: String!, oldPassword: String!): User
-  assignRole(userId: ID!, role: String!): User
-  unassignRole(userId: ID!, role: String!): User
+  assignRole(userId: ID!, roleName: String!): User
+  unassignRole(userId: ID!, roleName: String!): User
 
   createRole(name: String!): Role
   renameRole(id: ID!, name: String!): Role
@@ -48,6 +48,7 @@ type Query {
   userCount: Int
   role(id: ID, name: String): Role
   roles: [Role]
+  roleCount: Int
   schoolYear(id: ID): SchoolYear
   schoolYears: [SchoolYear]
   school: School
@@ -194,7 +195,7 @@ input UpdateGuardianInput {
   name: String!
   phone: String
   nationality: String
-  email: EmailAddress
+  email: String
 }
 
 input UpdateGroupInput {

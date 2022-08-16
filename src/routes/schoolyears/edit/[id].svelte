@@ -11,7 +11,7 @@
   import DeleteSchoolYear from '../_DeleteSchoolYear.svelte'
 
   export let id
-  let schoolYear = $schoolYears?.all.find((year) => year.id === id)
+  let schoolYear = { ...$schoolYears?.all.find((year) => year.id === id) }
 
   const onSubmit = async () => {
     await schoolYears.patch(schoolYear)
@@ -22,7 +22,7 @@
     goto('/schoolyears')
   }
   const onReset = () => {
-    schoolYear = $schoolYears?.all.find((year) => year.id === id)
+    schoolYear = { ...$schoolYears?.all.find((year) => year.id === id) }
   }
 </script>
 

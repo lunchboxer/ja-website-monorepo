@@ -6,6 +6,7 @@
   import { school } from '$lib/data/school.js'
   import { me } from '$lib/data/me.js'
   import { users } from '$lib/data/users.js'
+  import { roles } from '$lib/data/roles.js'
   import Logo from '$lib/Logo.svelte'
 
   export let checked = ''
@@ -74,7 +75,14 @@
         </a>
       </li>
       <li class="m-1">
-        <a href="/roles"> Roles </a>
+        <a href="/roles">
+          Roles
+          {#if $users}
+            {#await roles.count() then count}
+              <div class="badge">{count}</div>
+            {/await}
+          {/if}
+        </a>
       </li>
     {/if}
   </ul>

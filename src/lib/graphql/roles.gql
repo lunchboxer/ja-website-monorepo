@@ -4,6 +4,16 @@ query Roles {
   }
 }
 
+query RoleCount {
+  roleCount
+}
+
+query Role($name: String, $id: ID) {
+  role(name: $name, id: $id) {
+    ...AllRoleFields
+  }
+}
+
 mutation CreateRole($name: String!) {
   createRole(name: $name) {
     ...AllRoleFields

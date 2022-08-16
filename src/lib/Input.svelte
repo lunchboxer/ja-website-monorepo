@@ -43,7 +43,7 @@
   <label class="label" for={name}>
     <span class="label-text">{label}</span>
     {#if error}
-      <span class="lable-text error-text">{error}</span>
+      <span class="label-text error-text">{error}</span>
     {/if}
   </label>
 

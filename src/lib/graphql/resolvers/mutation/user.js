@@ -65,24 +65,24 @@ export const user = {
 
   deleteUser: (_, { id }, { prisma }) => prisma.user.delete({ where: { id } }),
 
-  assignRole: (_, { userId, role }, { prisma }) =>
+  assignRole: (_, { userId, roleName }, { prisma }) =>
     prisma.user.update({
       where: { id: userId },
       data: {
         roles: {
           connectOrCreate: {
-            create: { name: role },
-            where: { name: role },
+            create: { name: roleName },
+            where: { name: roleName },
           },
         },
       },
     }),
 
-  unassignRole: (_, { userId, role }, { prisma }) =>
+  unassignRole: (_, { userId, roleName }, { prisma }) =>
     prisma.user.update({
       where: { id: userId },
       data: {
-        roles: { disconnect: { name: role } },
+        roles: { disconnect: { name: roleName } },
       },
     }),
 }

@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store'
+import { roles } from '$lib/data/roles.js'
 import { request } from '$graphql/client.js'
 import {
   USERS,
@@ -50,13 +51,29 @@ function createUsersStore() {
       })
       this.updateOne(response.updateUser)
     },
-    unassignRole: async function (role, userId) {
-      const response = await request(UNASSIGN_ROLE, { role, userId })
+    unassignRole: async function (roleName, userId) {
+      const response = await request(UNASSIGN_ROLE, { roleName, userId })
       this.updateOne(response.unassignRole)
+      roles.update((existing) =>
+        existing.map((role) => {
+          if (role.name === roleName) {
+            role.users = role.users.filter((user) => user.id !== userId)
+          }
+          return role
+        }),
+      )
     },
-    assignRole: async function (role, userId) {
-      const response = await request(ASSIGN_ROLE, { role, userId })
+    assignRole: async function (roleName, userId) {
+      const response = await request(ASSIGN_ROLE, { roleName, userId })
       this.updateOne(response.assignRole)
+      roles.update((existing) =>
+        existing.map((role) => {
+          if (role.name === roleName) {
+            role.users = [...role.users, { id: userId }]
+          }
+          return role
+        }),
+      )
     },
     // Remove //
     remove: async (id) => {

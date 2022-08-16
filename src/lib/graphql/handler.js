@@ -6,6 +6,7 @@ import { database } from '$lib/data/database.js'
 import { resolvers } from './resolvers/index.js'
 import { permissions } from './permissions.js'
 import lru from 'tiny-lru'
+import { handleErrors } from './error-handler.js'
 
 const cache = lru(1000, 60 * 60 * 1000)
 
@@ -18,6 +19,7 @@ const schema = makeExecutableSchema({ typeDefs, resolvers })
 const schemaWithPermissions = applyMiddleware(
   schema,
   permissions.generate(schema),
+  handleErrors,
 )
 
 export async function handler(query, variables, user) {

@@ -5,6 +5,7 @@
 
   let form
 
+  let restart = 1
   let errors = ''
   let disabled = false
   let loading = false
@@ -28,6 +29,7 @@
     }
     loading = true
     disabled = true
+    ++restart
     try {
       await onSubmit()
       errors = ''
@@ -43,23 +45,27 @@
   }
 
   const reset = () => {
+    ++restart
     onReset()
     errors = ''
-    form.setAttribute('isvalid', true)
+    form.reset()
+    form.setAttribute('isValid', true)
   }
 </script>
 
 <Error {errors} />
+
 <form
   bind:this={form}
-  novalidate
   on:submit|preventDefault={submit}
   on:reset|preventDefault={reset}
   {action}
   {method}
 >
   <fieldset {disabled}>
-    <slot />
+    {#key restart}
+      <slot />
+    {/key}
     <p>
       <button type="reset" class="btn btn-outline btn-error"
         >🗙 &nbsp;reset</button

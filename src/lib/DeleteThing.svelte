@@ -7,6 +7,7 @@
   export let thingName = 'this'
   export let deleteFunction = () => {}
   export let mini = false
+  export let icon = false
   let errors = ''
   export let referrer = ''
   const modalId = 'modal' + nanoid(10)
@@ -28,7 +29,11 @@
 </script>
 
 {#if mini}
-  <label for={modalId} class="btn modal-button btn-sm">Delete</label>
+  <label for={modalId} class="btn modal-button btn-sm"> Delete </label>
+{:else if icon}
+  <label for={modalId} class="btn modal-button btn-ghost">
+    <slot>Delete</slot>
+  </label>
 {:else}
   <h2>Delete {thingName}</h2>
 

@@ -5,7 +5,7 @@ export async function GET({ locals }) {
   try {
     const response = await handler(ROLES, undefined, locals.user)
     return {
-      body: { roles: response.data.roles },
+      body: { loadRoles: response.data.roles },
     }
   } catch (error) {
     return {

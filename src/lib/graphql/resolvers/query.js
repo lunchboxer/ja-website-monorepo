@@ -38,6 +38,11 @@ export const Query = {
     return context.prisma.role.findMany()
   },
 
+  roleCount: async (_, parameters, { prisma }) => {
+    const count = await prisma.role.aggregate({ _count: { id: true } })
+    return count._count.id
+  },
+
   school: (_, parameters, context) => {
     // Only one record is supported
     return context.prisma.school.findUnique({ where: { id: 1 } })
