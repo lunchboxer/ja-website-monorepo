@@ -2,6 +2,8 @@ import { dev } from '$app/env'
 import { database } from '$lib/data/database.js'
 import { createVerifier } from 'fast-jwt'
 
+import 'dotenv/config'
+
 const verify = createVerifier({ key: process.env.JWT_SECRET })
 
 export const getUserFromCookies = async (cookies) => {
