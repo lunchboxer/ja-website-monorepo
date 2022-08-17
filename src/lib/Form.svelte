@@ -68,7 +68,7 @@
     {/key}
     <p>
       <button type="reset" class="btn btn-outline btn-error"
-        >🗙 &nbsp;reset</button
+        >&#10005; &nbsp;reset</button
       >
       <button type="submit" class="btn btn-outline btn-success">
         ✓ &nbsp;{submitLabel}
