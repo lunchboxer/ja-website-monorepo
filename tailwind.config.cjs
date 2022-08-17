@@ -2,7 +2,11 @@ const config = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
 
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Lexend', 'Helvetica'],
+      },
+    },
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
