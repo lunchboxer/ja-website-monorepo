@@ -35,6 +35,7 @@ export const POST = async ({ request }) => {
       throw new Error('Invalid password')
     }
     delete user.password
+    user.roles = user.roles.map((role) => role.name)
     const tokenExpiresIn = 30 // days
     const token = sign({ userId: user.id })
     const secure = dev ? '' : ' Secure;'

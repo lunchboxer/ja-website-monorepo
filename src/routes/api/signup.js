@@ -62,6 +62,7 @@ export const POST = async ({ request, locals }) => {
     })
     const token = sign({ userId: user.id })
     delete user.password
+    user.roles = user.roles.map((role) => role.name)
     const secure = dev ? '' : ' Secure;'
     return {
       body: { user },
