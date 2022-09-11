@@ -28,7 +28,7 @@
     <div class="container prose mx-auto px-4 py-4 mt-20">
       {#if !$me?.id && $page.url.pathname !== '/settings'}
         <Login />
-      {:else if $me?.id && ready}
+      {:else if $me?.id || $page.url.pathname === '/settings'}
         <slot />
       {/if}
     </div>
