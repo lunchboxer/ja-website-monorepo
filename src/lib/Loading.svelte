@@ -1,17 +1,21 @@
-<script>
-  import { fade } from 'svelte/transition'
+<script context="module">
+  import { writable } from 'svelte/store'
 
-  export let message = ''
+  export const loading = writable('')
 </script>
 
-<div transition:fade={{ duration: 200 }} class="loading">
-  <div class="container">
-    {#if message}
-      <p class="message">{message}</p>
-    {/if}
-    <div class="spinny" />
+<script>
+  import { fade } from 'svelte/transition'
+</script>
+
+{#if $loading}
+  <div transition:fade={{ duration: 200 }} class="loading">
+    <div class="container">
+      <p class="message">{$loading}</p>
+      <div class="spinny" />
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .message {

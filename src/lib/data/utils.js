@@ -4,7 +4,7 @@ import {
   differenceInCalendarDays,
   isLeapYear,
 } from 'date-fns'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 
 export function getDateString(date) {
   const dateObject = new Date(date)

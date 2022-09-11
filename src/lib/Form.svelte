@@ -1,7 +1,7 @@
 <script>
   import { notifications } from '$lib/notifications'
   import Error from '$lib/Error.svelte'
-  import { dev } from '$app/env'
+  import { dev } from '$app/environment'
 
   let form
 

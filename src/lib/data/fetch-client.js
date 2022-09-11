@@ -1,4 +1,4 @@
-import { dev } from '$app/env'
+import { dev } from '$app/environment'
 
 export const client = async (url, body, method = 'POST') => {
   const response = await fetch(url, {
@@ -12,7 +12,7 @@ export const client = async (url, body, method = 'POST') => {
   if (response && response.ok && !result.errors) {
     return result
   } else {
-    dev && console.error(result.errors)
-    throw result.errors
+    dev && console.error(result)
+    throw result
   }
 }

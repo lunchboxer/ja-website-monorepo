@@ -10,7 +10,7 @@
     </a>
   </td>
   <td>
-    {user.name || ''}
+    {user.name || '--'}
   </td>
   <td>
     {#each user.roles as role, index}

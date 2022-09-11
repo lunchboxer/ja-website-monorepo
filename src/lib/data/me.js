@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store'
 import { client } from '$lib/data/fetch-client.js'
-import { session } from '$app/stores'
 
 function createMeStore() {
   const { subscribe, set } = writable({})
@@ -10,29 +9,14 @@ function createMeStore() {
     login: async function (parameters) {
       const response = await client('/api/login', parameters)
       set(response.user)
-      session.update((data) => ({
-        ...data,
-        isAuthenticated: true,
-        me: response.user,
-      }))
     },
     signup: async function (parameters) {
       const response = await client('/api/signup', parameters)
       set(response.user)
-      session.update((data) => ({
-        ...data,
-        isAuthenticated: true,
-        me: response.user,
-      }))
     },
     logout: async function () {
       await client('/api/logout')
       set({})
-      session.update((data) => ({
-        ...data,
-        isAuthenticated: false,
-        me: undefined,
-      }))
     },
   }
 }

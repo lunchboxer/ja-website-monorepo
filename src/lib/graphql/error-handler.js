@@ -1,4 +1,4 @@
-import { dev } from '$app/env'
+import { dev } from '$app/environment'
 import { GraphQLError } from 'graphql'
 
 // Middle-ware to reveal expected errors and hide the rest

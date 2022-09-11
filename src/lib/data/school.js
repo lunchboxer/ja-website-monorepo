@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import { getObjectFromStorage } from './utils.js'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 import { request } from '$graphql/client.js'
 import { SCHOOL, UPDATE_SCHOOL } from '$graphql/school.gql'
 

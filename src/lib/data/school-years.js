@@ -7,7 +7,7 @@ import {
   DELETE_SCHOOL_YEAR,
   CREATE_SCHOOL_YEAR,
 } from '$graphql/school-years.gql'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 
 function createSchoolYearsStore() {
   const { subscribe, set, update } = writable(

@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 import { roles } from '$lib/data/roles.js'
+import { me } from '$lib/data/me.js'
 import { request } from '$graphql/client.js'
 import {
   USERS,
@@ -31,6 +32,9 @@ function createUsersStore() {
       update((existing) => [...existing, response.createUser])
     },
     updateOne: function (user) {
+      if (user.id === me.id) {
+        me.set(user)
+      }
       update((existing) => {
         let sawUser = false
         const previousUsers = existing.map((u) => {

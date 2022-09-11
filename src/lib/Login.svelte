@@ -3,7 +3,6 @@
   import { users } from '$lib/data/users.js'
   import Form from '$lib/Form.svelte'
   import Input from '$lib/Input.svelte'
-  import Loading from '$lib/Loading.svelte'
   import { notifications } from '$lib/notifications'
   import { goto } from '$app/navigation'
 
@@ -38,9 +37,7 @@
   }
 </script>
 
-{#await users.count()}
-  <Loading message="Looking for users" />
-{:then count}
+{#await users.count() then count}
   {#if count > 0}
     <h1>Log in</h1>
 

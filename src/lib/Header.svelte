@@ -2,7 +2,7 @@
   import { me } from '$lib/data/me.js'
   import { notifications } from '$lib/notifications'
   import { goto } from '$app/navigation'
-  import { session } from '$app/stores'
+  import { page } from '$app/stores'
   import Logo from '$lib/Logo.svelte'
   import MenuDotsIcon from '$lib/icons/MenuDotsIcon.svelte'
   import MenuHamburgerIcon from '$lib/icons/MenuHamburgerIcon.svelte'
@@ -11,7 +11,7 @@
   import LogoutIcon from '$lib/icons/LogoutIcon.svelte'
 
   const logout = async () => {
-    if (!$session.isAuthenticated) {
+    if (!$me?.id) {
       notifications.add({
         text: 'Cannot log out. User not logged in.',
         type: 'error',
@@ -51,13 +51,13 @@
         id="user-menu"
         class="menu dropdown-content p-2 mt-4 shadow bg-base-300 rounded-box"
       >
-        {#if $session.isAuthenticated}
+        {#if $me?.id}
           <li>
             <a href="/me"><ProfileIcon />Profile</a>
           </li>
         {/if}
         <li><a href="/settings"><SettingsIcon />Settings</a></li>
-        {#if $session.isAuthenticated}
+        {#if $me?.id}
           <li><button on:click={logout}><LogoutIcon />Logout</button></li>
         {/if}
       </ul>

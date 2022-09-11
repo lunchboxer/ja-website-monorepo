@@ -1,4 +1,4 @@
-import { dev } from '$app/env'
+import { dev } from '$app/environment'
 import { database } from '$lib/data/database.js'
 import { createVerifier } from 'fast-jwt'
 

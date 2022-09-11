@@ -58,7 +58,11 @@
   {/if}
   <Form submitLabel="assign new role" onSubmit={assignRole} {onReset}>
     <div class="form-control w-full max-w-xs">
-      <Input bind:value={inputRole} label="Create a new role to assign" />
+      <Input
+        bind:value={inputRole}
+        required
+        label="Create a new role to assign"
+      />
     </div>
   </Form>
 {/if}

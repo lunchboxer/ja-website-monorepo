@@ -9,8 +9,8 @@ function removeEmptyStrings(variables) {
   return variables
 }
 
-export const request = async (query, variables, event) => {
-  const fetchFunction = event?.fetch || fetch
+export const request = async (query, variables, fetchFun) => {
+  const fetchFunction = fetchFun || fetch
   const body =
     typeof query === 'function'
       ? query(variables)
