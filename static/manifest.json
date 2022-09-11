@@ -1,6 +1,7 @@
 {
   "name": "Junior Adventurers",
   "short_name": "Junior Adventurers",
+  "start_url": "/",
   "icons": [
     {
       "src": "/maskable_icon_x192.png",
@@ -16,7 +17,6 @@
     }
   ],
   "theme_color": "#7b71aa",
-  "start_url": "./index.html",
   "background_color": "#333333",
   "display": "standalone"
 }

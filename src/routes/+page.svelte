@@ -4,6 +4,10 @@
   import ActiveSchoolYearSelect from '$lib/ActiveSchoolYearSelect.svelte'
 </script>
 
+<svelte:head>
+  <title>Junior Adventurers</title>
+</svelte:head>
+
 {#if $school?.name}
   <h2>{$school.name}</h2>
   <ActiveSchoolYearSelect selected={$schoolYears?.active} />

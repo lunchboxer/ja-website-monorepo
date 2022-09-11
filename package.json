@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && cp ./src/lib/graphql/schema.graphql ./build/server/",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
@@ -16,6 +16,7 @@
     "@graphql-eslint/eslint-plugin": "^3.10.7",
     "@playwright/test": "^1.25.0",
     "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-node": "^1.0.0-next.89",
     "@sveltejs/kit": "next",
     "@tailwindcss/typography": "^0.5.4",
     "autoprefixer": "^10.4.8",

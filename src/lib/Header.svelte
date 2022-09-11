@@ -2,7 +2,6 @@
   import { me } from '$lib/data/me.js'
   import { notifications } from '$lib/notifications'
   import { goto } from '$app/navigation'
-  import { page } from '$app/stores'
   import Logo from '$lib/Logo.svelte'
   import MenuDotsIcon from '$lib/icons/MenuDotsIcon.svelte'
   import MenuHamburgerIcon from '$lib/icons/MenuHamburgerIcon.svelte'
