@@ -7,12 +7,9 @@ import { resolvers } from './resolvers/index.js'
 import { permissions } from './permissions.js'
 import lru from 'tiny-lru'
 import { handleErrors } from './error-handler.js'
+import typeDefs from './schema.graphql?raw'
 
 const cache = lru(1000, 60 * 60 * 1000)
-
-const typeDefs = [
-  readFileSync(new URL('schema.graphql', import.meta.url), 'utf8').toString(),
-]
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
