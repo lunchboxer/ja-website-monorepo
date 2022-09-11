@@ -11,6 +11,10 @@
     : $me.groups.map((group) => group.name).join(', ')
 </script>
 
+<svelte:head>
+  <title>User Profile</title>
+</svelte:head>
+
 <h1>User Profile</h1>
 
 {#if $me?.id}
