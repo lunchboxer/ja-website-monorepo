@@ -1,6 +1,5 @@
 import { applyMiddleware } from 'graphql-middleware'
 import { makeExecutableSchema } from '@graphql-tools/schema'
-import { readFileSync } from 'node:fs'
 import { parse, validate, execute } from 'graphql'
 import { database } from '$lib/data/database.js'
 import { resolvers } from './resolvers/index.js'

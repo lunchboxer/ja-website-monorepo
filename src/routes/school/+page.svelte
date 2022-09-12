@@ -3,6 +3,7 @@
   import Input from '$lib/Input.svelte'
   import Textarea from '$lib/Textarea.svelte'
   import { school } from '$lib/data/school.js'
+  import { goto } from '$app/navigation'
   import { notifications } from '$lib/notifications/index.js'
 
   let name = $school?.name
@@ -14,6 +15,7 @@
       type: 'success',
       text: `Saved changes for ${name}`,
     })
+    goto('/')
   }
   const onError = () => {
     notifications.add({

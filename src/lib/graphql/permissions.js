@@ -19,6 +19,7 @@ export const permissions = shield(
       me: isAuthenticated,
       users: isAdmin,
       user: isAdmin,
+      roles: isAdmin,
     },
     Mutation: {
       createUser: isAdmin,
