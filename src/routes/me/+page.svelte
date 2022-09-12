@@ -6,9 +6,11 @@
 
   me.set(data.me)
 
-  const groupList = !$me.groups?.length
-    ? 'none'
-    : $me.groups.map((group) => group.name).join(', ')
+  const listGroups = (groups) => {
+    return !groups?.length
+      ? 'none'
+      : groups.map((group) => group.name).join(', ')
+  }
 </script>
 
 <svelte:head>
@@ -53,7 +55,7 @@
         <tr>
           <td>groups</td>
           <td>
-            {groupList}
+            {listGroups($me.groups)}
           </td>
         </tr>
         <tr>
