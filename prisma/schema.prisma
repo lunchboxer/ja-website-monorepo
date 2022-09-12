@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  //provider = "sqlite"
-  provider = "cockroachdb"
+  provider = "sqlite"
+  //provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
