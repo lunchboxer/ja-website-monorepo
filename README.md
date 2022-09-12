@@ -1,20 +1,21 @@
-# create-svelte
+# Junior Adventurers
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a sveltekit app with a grpahql API at /api/graphql. a graphiql interface is included for convenience at /graphiql.html
 
-## Creating a project
+## Set up
 
-If you're seeing this, you've probably already done this step. Congrats!
+Make sure you have a .env file like:
 
 ```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+JWT_SECRET=consecrate-define-blockquote-smith
+DATABASE_URL="file:./dev.db"
 ```
 
-> Note: the `@next` is temporary
+if you are using a sqlite database, as in this example, the file path is relative to the `schema.prisma` file located by default in `prisma/`
+
+You may need to run `npx prisma db push` to ensure the database is properly set up once you have your `.env` file set up.
+
+Finally, you need to generate the prisma client with `npm run generate`.
 
 ## Developing
 
@@ -22,19 +23,14 @@ Once you've created a project and installed dependencies with `npm install` (or 
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
 ## Building
 
-To create a production version of your app:
+To create a production version:
 
 ```bash
 npm run build
 ```
 
 You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
