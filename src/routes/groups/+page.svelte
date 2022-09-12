@@ -2,6 +2,8 @@
   import AddGroup from './_AddGroup.svelte'
   import GroupRow from './_GroupRow.svelte'
   import { groups } from '$lib/data/groups.js'
+  import { schoolYears } from '$lib/data/school-years.js'
+  import ActiveSchoolYearSelect from '$lib/ActiveSchoolYearSelect.svelte'
 </script>
 
 <h1>Groups</h1>
@@ -31,4 +33,10 @@
   <p>There are no groups yet.</p>
 {/if}
 
-<AddGroup />
+{#if $schoolYears?.active}
+  <AddGroup />
+{:else}
+  <h2>Create new Group</h2>
+  <p>A group cannot be created without first selecting an active school year</p>
+  <ActiveSchoolYearSelect />
+{/if}

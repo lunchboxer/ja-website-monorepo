@@ -3,6 +3,7 @@
   import AddStudent from './_AddStudent.svelte'
   import StudentRow from './_StudentRow.svelte'
   import { students } from '$lib/data/students.js'
+  import { groups } from '$lib/data/groups.js'
 </script>
 
 <h1>Students</h1>
@@ -34,4 +35,11 @@
   <p>There are no students yet.</p>
 {/if}
 
-<AddStudent />
+{#if $groups?.length > 0}
+  <AddStudent />
+{:else}
+  <h2>Add a student</h2>
+  <p>
+    There are no groups defined yet. <a href="/groups">Create one</a> first.
+  </p>
+{/if}
