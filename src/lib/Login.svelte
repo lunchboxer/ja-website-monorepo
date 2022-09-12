@@ -17,6 +17,7 @@
       type: 'success',
       text: `Logged in as ${username}`,
     })
+    goto('/')
   }
 
   const loginOnError = () => {
