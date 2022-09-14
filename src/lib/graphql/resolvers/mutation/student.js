@@ -1,4 +1,15 @@
 import { pinyin } from 'pinyin-pro'
+import { scryptSync, randomBytes } from 'node:crypto'
+import { GraphQLError } from 'graphql'
+
+function encryptPassword(password, salt) {
+  return scryptSync(password, salt, 32).toString('hex')
+}
+
+function hashPassword(password) {
+  const salt = randomBytes(16).toString('hex')
+  return encryptPassword(password, salt) + salt
+}
 
 export async function disconnectOtherGroupsThisSchoolYear(
   studentId,
@@ -38,15 +49,33 @@ export async function disconnectOtherGroupsThisSchoolYear(
 
 export const student = {
   createStudent: async (_, { input }, { prisma }) => {
-    const { groupId, ...parameters } = input
-    return prisma.student.create({
+    const { groupId, password, username, ...parameters } = input
+    const hashedPassword = hashPassword(password)
+    const usernameTaken = await prisma.user.findFirst({
+      where: { username },
+    })
+    if (usernameTaken) throw new GraphQLError('Username already exists')
+    const student = await prisma.student.create({
       data: {
         ...parameters,
         groups: {
           connect: { id: groupId },
         },
+        user: {
+          create: {
+            username,
+            password: hashedPassword,
+            roles: {
+              connectOrCreate: {
+                create: { name: 'student' },
+                where: { name: 'student' },
+              },
+            },
+          },
+        },
       },
     })
+    return student
   },
 
   updateStudent: async (_, { input }, { prisma }) => {

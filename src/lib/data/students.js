@@ -42,6 +42,11 @@ function createStudentsStore() {
       await request(DELETE_STUDENT, { id })
       update((existing) => existing.filter((s) => s.id !== id))
     },
+    generatePassword: async () => {
+      const response = await fetch('/api/generate-password')
+      const data = await response.json()
+      return data.password
+    },
   }
 }
 

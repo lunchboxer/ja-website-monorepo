@@ -137,6 +137,8 @@ type School {
 input CreateStudentInput {
   commonName: String!
   groupId: ID!
+  username: String!
+  password: String!
 }
 
 input UpdateStudentInput {
